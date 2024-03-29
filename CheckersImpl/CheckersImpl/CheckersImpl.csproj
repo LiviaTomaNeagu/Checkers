@@ -63,6 +63,18 @@
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Services\BoardModel.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\GameService.cs" />
+    <Compile Include="Services\PieceModel.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
+    <Compile Include="Services\TileModel.cs" />
+    <Compile Include="ViewModels\BaseVM.cs" />
+    <Compile Include="ViewModels\BoardVM.cs" />
+    <Compile Include="ViewModels\GameVM.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
