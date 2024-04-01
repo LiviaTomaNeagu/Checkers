@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="CheckersImpl.View.BoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CheckersImpl.View"
+             xmlns:vm="clr-namespace:CheckersImpl.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <!-- Resursa pentru a defini aspectul fiecărei căsuțe de pe tablă -->
+        <DataTemplate x:Key="BoardSquareTemplate">
+            <Border Width="35" Height="35" Background="{Binding SquareColor}">
+                <ContentPresenter Content="{Binding Piece}" />
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <ItemsControl ItemsSource="{Binding BoardSquares}" ItemTemplate="{StaticResource BoardSquareTemplate}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="8" Columns="8"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</UserControl>
