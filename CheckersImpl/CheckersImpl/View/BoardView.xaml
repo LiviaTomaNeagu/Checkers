@@ -16,8 +16,20 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
-        <ItemsControl ItemsSource="{Binding BoardSquares}" ItemTemplate="{StaticResource BoardSquareTemplate}">
+    <Grid Background="White">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <ItemsControl ItemsSource="{Binding Board}" ItemTemplate="{StaticResource BoardSquareTemplate}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="8" Columns="8"/>
