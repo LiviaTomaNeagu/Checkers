@@ -9,15 +9,61 @@
 
     <DockPanel LastChildFill="True">
         <!-- Meniu în partea stângă -->
-        <StackPanel DockPanel.Dock="Left" Width="200" Background="LightGray">
-            <Button Content="Nou Joc" Margin="5" Padding="10"/>
-            <Button Content="Ajutor" Margin="5" Padding="10"/>
+        <StackPanel DockPanel.Dock="Left" Width="200" Background="White" VerticalAlignment="Stretch">
+            <TabControl Margin="5" VerticalAlignment="Stretch">
+                <TabItem Header="Menu">
+
+                    <Menu>
+                        <StackPanel Orientation="Vertical">
+                            <MenuItem Header="New Game"/>
+                            <MenuItem Header="Save"/>
+                            <MenuItem Header="Open"/>
+                            <Separator/>
+                            <MenuItem Header="Allow Multiple Jump"/>
+                            <MenuItem Header="Statistics"/>
+                        </StackPanel>
+                    </Menu>
+                </TabItem>
+                <TabItem Header="Help">
+                    <Menu>
+                        <MenuItem Header="About"/>
+                    </Menu>
+                </TabItem>
+            </TabControl>
+            <TextBlock Text="Information" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Allow Multiple Jump " Margin="0,5,0,0" VerticalAlignment="Center"/>
+                <ToggleButton Width="50" Height="41" VerticalAlignment="Center" HorizontalAlignment="Right" >
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Grid>
+                                <!-- Outer rectangle with rounded corners -->
+                                <Rectangle x:Name="backgroundRectangle" Fill="#D3D3D3" Width="50" Height="25" RadiusX="14" RadiusY="25"/>
+                                <!-- Inner rectangle with rounded corners -->
+                                <Rectangle x:Name="toggleRectangle" Fill="#000000" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,25,0"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="Green"/>
+                                    <Setter TargetName="toggleRectangle" Property="Margin" Value="25,5,5,5"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="#000000"/>
+                                    <Setter TargetName="toggleRectangle" Property="Margin" Value="5,5,25,5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+            </StackPanel>
+
             <!-- Alte butoane sau elemente de meniu pot fi adăugate aici -->
         </StackPanel>
 
         <!-- Conținutul principal -->
         <Grid Background="AliceBlue">
-            
+
             <!-- Zona de afișare a tablei de joc -->
             <Border Margin="100,70,100,130" Width="400" Height="400" Padding="10" Background="Black">
                 <local:BoardView/>
@@ -27,7 +73,7 @@
             <TextBlock Text="Rândul: Albe" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"/>
             <Button Content="Button1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25"/>
             <Button Content="Button2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,25"/>
-            
+
         </Grid>
     </DockPanel>
 </UserControl>
