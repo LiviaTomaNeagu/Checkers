@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckersImpl.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,12 @@ using System.Windows.Shapes;
 
 namespace CheckersImpl.View
 {
-    /// <summary>
-    /// Interaction logic for BoardView.xaml
-    /// </summary>
     public partial class BoardView : UserControl
     {
         public BoardView()
         {
             InitializeComponent();
+            DataContext = new BoardVM();
         }
     }
 }

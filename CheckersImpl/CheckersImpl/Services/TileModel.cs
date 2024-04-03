@@ -4,20 +4,20 @@ public class TileModel
 {
     public int Row { get; set; }
     public int Column { get; set; }
-    public string Color { get; set; }
+    public Color Color { get; set; }
     public bool IsOccupied { get; set; }
 
     public TileModel(int row, int column, string color)
     {
         Row = row;
         Column = column;
-        Color = color;
+        Color = GetColorFromString(color);
         IsOccupied = false;
     }
 
-    public Color GetColor()
+    public Color GetColorFromString(string color)
     {
-        switch (Color.ToLower())
+        switch (color.ToLower())
         {
             case "lightbrown":
                 return (Color)ColorConverter.ConvertFromString("#B79F6F");
@@ -26,5 +26,10 @@ public class TileModel
             default:
                 return Colors.Transparent;
         }
+    }
+
+    public Color GetColor()
+    {
+        return Color;
     }
 }
