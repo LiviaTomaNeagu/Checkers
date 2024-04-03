@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using CheckersImpl.Services;
+using System.Windows.Media;
 
 public class TileModel
 {
@@ -6,6 +7,7 @@ public class TileModel
     public int Column { get; set; }
     public SolidColorBrush Color { get; set; }
     public bool IsOccupied { get; set; }
+    public PieceModel Piece { get; set; }
 
     public TileModel(int row, int column, SolidColorBrush color)
     {
@@ -13,5 +15,6 @@ public class TileModel
         Column = column;
         Color = color;
         IsOccupied = false;
+        Piece = null;
     }
 }

@@ -14,6 +14,7 @@ namespace CheckersImpl.ViewModels
         public BoardModel BoardModel { get; }
 
         public ObservableCollection<TileModel> myVMBoard { get; set; }
+        public ObservableCollection<PieceModel> Pieces { get; set; }
 
         public BoardVM()
         {
@@ -34,13 +35,17 @@ namespace CheckersImpl.ViewModels
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    // Get the color of the tile from the BoardModel (assuming it's represented as an int for simplicity)
-                    SolidColorBrush color = BoardModel.myBoard[row, column].Color;
+                    // Get the tile from the BoardModel
+                    var tile = BoardModel.myBoard[row, column];
 
-                    // Create a new TileModel and add it to the ObservableCollection
-                    myVMBoard.Add(new TileModel(row, column, color));
+                    // Add the tile to the ObservableCollection
+                    myVMBoard.Add(tile);
                 }
             }
+
+            // Assuming Pieces is meant to be a flat list of all pieces, irrespective of position
+            Pieces = new ObservableCollection<PieceModel>(BoardModel.myPieces);
         }
+
     }
 }

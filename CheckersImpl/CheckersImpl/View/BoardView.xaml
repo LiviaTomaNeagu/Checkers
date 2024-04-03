@@ -16,6 +16,10 @@
     <!--<UserControl.Resources>
         <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>-->
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
 
     <Grid>
         <!-- Display the squares in an ItemsControl -->
@@ -27,9 +31,14 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="{Binding Color}" Width="50" Height="50">
-                        <!-- Additional markup to display details about the tile -->
-                    </Border>
+                    <Grid Width="50" Height="50">
+                        <Border Background="{Binding Color}" Width="40" Height="40"/>
+                        <Ellipse Fill="{Binding Piece.Color}" 
+                         Visibility="{Binding Piece.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                         Width="20" Height="20" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center"/>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
