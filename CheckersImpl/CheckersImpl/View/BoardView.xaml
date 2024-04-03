@@ -32,13 +32,14 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Border Background="{Binding Color}" Width="50" Height="50"/>
+                        <Border Background="{Binding Color}" Width="50" Height="50"
+                                MouseLeftButtonDown="TileWasSelected"/>
                         <Ellipse Fill="{Binding Piece.Color}" 
-                         Visibility="{Binding Piece.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                         Width="25" Height="25" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Center"
-                         />
+                                 Visibility="{Binding Piece.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                 Width="25" Height="25" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 MouseLeftButtonDown="PieceWasSelected"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

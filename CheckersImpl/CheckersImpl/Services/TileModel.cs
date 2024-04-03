@@ -8,6 +8,7 @@ public class TileModel
     public SolidColorBrush Color { get; set; }
     public bool IsOccupied { get; set; }
     public PieceModel Piece { get; set; }
+    public bool IsSelected { get; set; }
 
     public TileModel(int row, int column, SolidColorBrush color)
     {
@@ -16,5 +17,6 @@ public class TileModel
         Color = color;
         IsOccupied = false;
         Piece = null;
+        IsSelected = false;
     }
 }

@@ -18,15 +18,19 @@ namespace CheckersImpl.Services
         public int Row { get; set; }
         public int Column { get; set; }
         public bool IsVisible { get; set; }
+        public bool IsSelected { get; set; }
+        public TileModel CurrentTile { get; set; }
 
         // Constructor
-        public PieceModel(int row, int column, SolidColorBrush color)
+        public PieceModel(int row, int column, SolidColorBrush color, TileModel currentTile)
         {
             Row = row;
             Column = column;
             Color = color;
             IsKing = false;
             IsVisible = true;
+            IsSelected = false;
+            CurrentTile = currentTile;
         }
 
         // Method to crown the piece a king
