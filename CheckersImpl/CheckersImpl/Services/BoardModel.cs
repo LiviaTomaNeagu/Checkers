@@ -8,7 +8,7 @@ namespace CheckersImpl.Services
 {
     public class BoardModel
     {
-        public int[,] BoardState { get; private set; }
+        public TileModel[,] Board { get; private set; }
 
         public BoardModel()
         {
@@ -17,12 +17,19 @@ namespace CheckersImpl.Services
 
         private void InitializeBoard()
         {
-            // Initialize the board with the starting state
-            BoardState = new int[8, 8];
-            // Logic to set up the initial state of the board
+            Board = new TileModel[8, 8];
+
+            // Initialize each square with a default tile
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    string color = (row + col) % 2 == 0 ? "lightbrown" : "darkbrown";
+                    Board[row, col] = new TileModel(row, col, color);
+                }
+            }
         }
 
         // Other methods and properties related to the game board
     }
 }
-

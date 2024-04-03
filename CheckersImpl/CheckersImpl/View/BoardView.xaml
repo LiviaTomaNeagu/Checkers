@@ -16,19 +16,16 @@
     <UserControl.Resources>
         <!-- Resource for defining the appearance of each square on the board -->
         <DataTemplate x:Key="BoardSquareTemplate">
-            <Border Width="35" Height="35" Background="{Binding Color}">
-                <!-- You can remove the ContentPresenter if you don't have any content to display -->
-            </Border>
+            <Border Background="{Binding Color}"/>
         </DataTemplate>
     </UserControl.Resources>
 
     <!-- Grid for the game board -->
-    <Grid Background="White">
+    <Grid>
         <!-- Display the squares in an ItemsControl -->
         <ItemsControl ItemsSource="{Binding Board}" ItemTemplate="{StaticResource BoardSquareTemplate}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <!-- Use a UniformGrid to distribute the squares -->
                     <UniformGrid Rows="8" Columns="8"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
