@@ -7,31 +7,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <!-- Set DataContext to an instance of BoardVM -->
+    <UserControl.DataContext>
+        <vm:BoardVM/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
-        <!-- Resursa pentru a defini aspectul fiecărei căsuțe de pe tablă -->
+        <!-- Resource for defining the appearance of each square on the board -->
         <DataTemplate x:Key="BoardSquareTemplate">
-            <Border Width="35" Height="35" Background="{Binding SquareColor}">
-                <ContentPresenter Content="{Binding Piece}" />
+            <Border Width="35" Height="35" Background="{Binding Color}">
+                <!-- You can remove the ContentPresenter if you don't have any content to display -->
             </Border>
         </DataTemplate>
     </UserControl.Resources>
 
+    <!-- Grid for the game board -->
     <Grid Background="White">
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="50"/>
-        </Grid.ColumnDefinitions>
-
+        <!-- Display the squares in an ItemsControl -->
         <ItemsControl ItemsSource="{Binding Board}" ItemTemplate="{StaticResource BoardSquareTemplate}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
+                    <!-- Use a UniformGrid to distribute the squares -->
                     <UniformGrid Rows="8" Columns="8"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
