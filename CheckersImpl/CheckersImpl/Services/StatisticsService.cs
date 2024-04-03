@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CheckersImpl.Services
 {
-    internal class StatisticsService
+    public class StatisticsService
     {
     }
 }

@@ -1,0 +1,277 @@
+{
+  "Board": [
+    [
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 0,
+          "Column": 1
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 0,
+          "Column": 3
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 0,
+          "Column": 5
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 0,
+          "Column": 7
+        }
+      }
+    ],
+    [
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 1,
+          "Column": 0
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 1,
+          "Column": 2
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 1,
+          "Column": 4
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 1,
+          "Column": 6
+        }
+      },
+      null
+    ],
+    [
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 2,
+          "Column": 1
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 2,
+          "Column": 3
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 2,
+          "Column": 5
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFFFFFF",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 2,
+          "Column": 7
+        }
+      }
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 5,
+          "Column": 0
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 5,
+          "Column": 2
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 5,
+          "Column": 4
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 5,
+          "Column": 6
+        }
+      },
+      null
+    ],
+    [
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 6,
+          "Column": 1
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 6,
+          "Column": 3
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 6,
+          "Column": 5
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 6,
+          "Column": 7
+        }
+      }
+    ],
+    [
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 7,
+          "Column": 0
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 7,
+          "Column": 2
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 7,
+          "Column": 4
+        }
+      },
+      null,
+      {
+        "PieceColor": "#FFFF0000",
+        "IsPieceVisible": true,
+        "IsPieceKing": false,
+        "Position": {
+          "Row": 7,
+          "Column": 6
+        }
+      },
+      null
+    ]
+  ],
+  "CurrentTurn": "None"
+}

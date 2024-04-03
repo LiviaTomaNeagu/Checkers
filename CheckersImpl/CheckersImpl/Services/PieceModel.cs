@@ -29,6 +29,16 @@ namespace CheckersImpl.Services
             IsVisible = true;
         }
 
+        public PieceModel(SolidColorBrush color, bool isKing, int row, int column, bool isVisible)
+        {
+            Color = color;
+            IsKing = isKing;
+            Row = row;
+            Column = column;
+            IsVisible = isVisible;
+        }
+
+
         // Method to crown the piece a king
         public void CrownPiece()
         {
