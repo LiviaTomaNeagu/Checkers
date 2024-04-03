@@ -16,14 +16,18 @@
         </StackPanel>
 
         <!-- Conținutul principal -->
-        <Grid>
+        <Grid Background="AliceBlue">
+            
             <!-- Zona de afișare a tablei de joc -->
-            <Border Background="LightGray" Margin="10" Padding="20">
-                <TextBlock Text="Zona Tablei de Joc" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Border Margin="100,70,100,130" Width="400" Height="400" Padding="10" Background="Black">
+                <local:BoardView/>
             </Border>
 
             <!-- Indicator pentru rândul curent -->
             <TextBlock Text="Rândul: Albe" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"/>
+            <Button Content="Button1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25"/>
+            <Button Content="Button2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,25"/>
+            
         </Grid>
     </DockPanel>
 </UserControl>
