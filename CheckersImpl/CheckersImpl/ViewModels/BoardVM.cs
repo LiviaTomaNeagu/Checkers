@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CheckersImpl.ViewModels
 {
@@ -12,7 +13,7 @@ namespace CheckersImpl.ViewModels
     {
         public BoardModel BoardModel { get; }
 
-        public ObservableCollection<TileModel> Board { get; set; }
+        public ObservableCollection<TileModel> myVMBoard { get; set; }
 
         public BoardVM()
         {
@@ -26,7 +27,7 @@ namespace CheckersImpl.ViewModels
         private void InitializeBoard()
         {
             // Initialize the ObservableCollection
-            Board = new ObservableCollection<TileModel>();
+            myVMBoard = new ObservableCollection<TileModel>();
 
             // Loop through each cell in the BoardModel and create a TileModel for each one
             for (int row = 0; row < 8; row++)
@@ -34,13 +35,10 @@ namespace CheckersImpl.ViewModels
                 for (int column = 0; column < 8; column++)
                 {
                     // Get the color of the tile from the BoardModel (assuming it's represented as an int for simplicity)
-                    string colorString = BoardModel.Board[row, column].Color.ToString();
-
-                    // Convert the color integer to a string representation (e.g., "lightbrown", "darkbrown", etc.)
-                    //string colorString = GetColorString(color);
+                    SolidColorBrush color = BoardModel.myBoard[row, column].Color;
 
                     // Create a new TileModel and add it to the ObservableCollection
-                    Board.Add(new TileModel(row, column, colorString));
+                    myVMBoard.Add(new TileModel(row, column, color));
                 }
             }
         }

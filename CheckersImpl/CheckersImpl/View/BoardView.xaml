@@ -13,22 +13,25 @@
         <vm:BoardVM/>
     </UserControl.DataContext>
 
-    <UserControl.Resources>
-        <!-- Resource for defining the appearance of each square on the board -->
-        <DataTemplate x:Key="BoardSquareTemplate">
-            <Border Background="{Binding Color}"/>
-        </DataTemplate>
-    </UserControl.Resources>
+    <!--<UserControl.Resources>
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>-->
 
-    <!-- Grid for the game board -->
     <Grid>
         <!-- Display the squares in an ItemsControl -->
-        <ItemsControl ItemsSource="{Binding Board}" ItemTemplate="{StaticResource BoardSquareTemplate}">
+        <ItemsControl ItemsSource="{Binding myVMBoard}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="8" Columns="8"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{Binding Color}" Width="50" Height="50">
+                        <!-- Additional markup to display details about the tile -->
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
 </UserControl>
