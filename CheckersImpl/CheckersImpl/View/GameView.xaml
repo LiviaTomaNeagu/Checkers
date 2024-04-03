@@ -9,9 +9,51 @@
 
     <DockPanel LastChildFill="True">
         <!-- Meniu în partea stângă -->
-        <StackPanel DockPanel.Dock="Left" Width="200" Background="LightGray">
-            <Button Content="Nou Joc" Margin="5" Padding="10"/>
-            <Button Content="Ajutor" Margin="5" Padding="10"/>
+        <StackPanel DockPanel.Dock="Left" Width="200" Background="White" VerticalAlignment="Stretch">
+            <TabControl Margin="5" VerticalAlignment="Stretch">
+                <TabItem Header="Menu">
+
+                    <Menu>
+                        <StackPanel Orientation="Vertical">
+                            <MenuItem Header="New Game"/>
+                            <MenuItem Header="Save"/>
+                            <MenuItem Header="Open"/>
+                            <Separator/>
+                            <MenuItem Header="Allow Multiple Jump"/>
+                            <MenuItem Header="Statistics"/>
+                        </StackPanel>
+                    </Menu>
+                </TabItem>
+                <TabItem Header="Help">
+                    <Menu>
+                        <MenuItem Header="About"/>
+                    </Menu>
+                </TabItem>
+            </TabControl>
+            <TextBlock Text="Information" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Allow Multiple Jump " Margin="0,5,0,0"/>
+
+                <ToggleButton Width="30" Height="30" Background="Gray" Checked="ToggleButton_Checked">
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Grid>
+                                <Ellipse x:Name="outerCircle" Width="20" Height="20" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                                <Path x:Name="checkMark" Data="M5,13 L10,18 L20,8" Stroke="Green" StrokeThickness="2" Visibility="Collapsed"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="outerCircle" Property="Stroke" Value="Red"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+            </StackPanel>
+
             <!-- Alte butoane sau elemente de meniu pot fi adăugate aici -->
         </StackPanel>
 
