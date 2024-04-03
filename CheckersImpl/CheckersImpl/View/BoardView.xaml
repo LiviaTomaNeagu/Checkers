@@ -31,13 +31,14 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="50" Height="50">
-                        <Border Background="{Binding Color}" Width="40" Height="40"/>
+                    <Grid>
+                        <Border Background="{Binding Color}" Width="50" Height="50"/>
                         <Ellipse Fill="{Binding Piece.Color}" 
                          Visibility="{Binding Piece.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                         Width="20" Height="20" 
+                         Width="25" Height="25" 
                          HorizontalAlignment="Center" 
-                         VerticalAlignment="Center"/>
+                         VerticalAlignment="Center"
+                         />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
