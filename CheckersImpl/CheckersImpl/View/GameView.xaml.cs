@@ -24,6 +24,7 @@ namespace CheckersImpl.View
         public GameView()
         {
             InitializeComponent();
+            //DataContext = new GameVM();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

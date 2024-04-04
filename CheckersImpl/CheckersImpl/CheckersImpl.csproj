@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\JumpCommand.cs" />
-    <Compile Include="Commands\LoadGameCommand.cs" />
     <Compile Include="Commands\MoveCommand.cs" />
     <Compile Include="Commands\MultiJumpCommand.cs" />
     <Compile Include="Commands\SaveGameCommand.cs" />

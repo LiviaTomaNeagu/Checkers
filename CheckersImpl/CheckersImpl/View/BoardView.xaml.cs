@@ -21,7 +21,7 @@ namespace CheckersImpl.View
         public BoardView()
         {
             InitializeComponent();
-            DataContext = new BoardVM();
+            
         }
     }
 }

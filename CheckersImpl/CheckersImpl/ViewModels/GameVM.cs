@@ -8,6 +8,7 @@ namespace CheckersImpl.ViewModels
     public class GameVM : INotifyPropertyChanged
     {
         private GameService _gameService;
+        public BoardVM boardVM { get; set; }
 
         // Example property bound to by the view
         public Player CurrentPlayer
@@ -18,17 +19,31 @@ namespace CheckersImpl.ViewModels
         // Commands
         public ICommand NewGameCommand { get; private set; }
         public ICommand SaveGameCommand { get; private set; }
-        public ICommand LoadGameCommand { get; private set; }
+
+        private ICommand _loadGameCommand;
+        public ICommand LoadGameCommand
+        {
+            get { return _loadGameCommand; }
+            set
+            {
+                if (_loadGameCommand != value)
+                {
+                    _loadGameCommand = value;
+                    OnPropertyChanged(nameof(LoadGameCommand));
+                }
+            }
+        }
         public ICommand MakeMoveCommand { get; private set; }
 
         public GameVM()
         {
-            _gameService = new GameService();
-
+            boardVM = new BoardVM();
+            _gameService = new GameService(boardVM.Pieces);
+           
             // Initialize commands
             NewGameCommand = new RelayCommand(_ => NewGame());
             SaveGameCommand = new SaveGameCommand(SaveGame);
-            LoadGameCommand = new LoadGameCommand(LoadGame);
+            LoadGameCommand = new RelayCommand(_ => LoadGame());
             //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
         }
 
@@ -36,6 +51,7 @@ namespace CheckersImpl.ViewModels
         {
             _gameService.StartNewGame();
             OnPropertyChanged(nameof(CurrentPlayer));
+            OnPropertyChanged(nameof(boardVM));
             // Update any other relevant properties or perform additional tasks
         }
 
@@ -48,8 +64,12 @@ namespace CheckersImpl.ViewModels
         private void LoadGame()
         {
             _gameService.LoadGame();
-            OnPropertyChanged(nameof(CurrentPlayer));
-            // Update any other relevant properties based on the loaded game state
+
+            OnPropertyChanged(nameof(boardVM)); // Notify that boardVM itself might have new data.
+            boardVM.OnPropertyChanged(nameof(boardVM.Pieces));
+            boardVM.OnPropertyChanged(nameof(boardVM.myVMBoard));
+            
+            
         }
 
         private void MakeMove(object parameter)
@@ -61,9 +81,19 @@ namespace CheckersImpl.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        public virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        //public void UpdateGameState()
+        //{
+        //    // Update the game state here
+        //    // Example:
+        //    // GameState = newGameState;
+
+        //    // Notify subscribers that the game state has changed
+        //    OnPropertyChanged(nameof(_boardVM));
+        //}
     }
 }

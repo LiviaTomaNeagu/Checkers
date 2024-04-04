@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace CheckersImpl.Services
 {
@@ -11,26 +12,21 @@ namespace CheckersImpl.Services
 
     public class GameService
     {
-        private BoardModel _boardModel;
+        public ObservableCollection<PieceModel> Pieces;
+
         private FileService _fileService;
         private StatisticsService _statisticsService;
         public Player CurrentTurn { get; private set; }
 
-        public GameService(FileService fileService, StatisticsService statisticsService)
-        {
-            _fileService = fileService;
-            _statisticsService = statisticsService;
-
-            _boardModel = new BoardModel();
-        }
-
-        public GameService()
+        public GameService(ObservableCollection<PieceModel> Pieces)
         {
             _fileService = new FileService();
             _statisticsService = new StatisticsService();
-            _boardModel = new BoardModel();
+            this.Pieces = Pieces;
+
         }
 
+ 
         public void StartNewGame()
         {
             //// Initialize or reset the game board to its starting state
@@ -44,15 +40,21 @@ namespace CheckersImpl.Services
         public void SaveGame()
         {
             //// Use FileService to save the current game state to a file
-            _fileService.SaveGame(_boardModel, CurrentTurn);
+           // _fileService.SaveGame(_boardModel, CurrentTurn);
         }
 
         public void LoadGame()
         {
             //// Use FileService to load the game state from a file
             GameLoadResult loadResult = _fileService.LoadGame();
-            //CurrentTurn = loadResult.CurrentPlayer;
-            _boardModel.myPieces = loadResult.PieceModel;
+            if(loadResult != null)
+            {//CurrentTurn = loadResult.CurrentPlayer;
+                Pieces.Clear(); // Clear the existing collection
+                foreach (var piece in loadResult.PieceModel)
+                {
+                    Pieces.Add(piece); // Add elements from loadResult.PieceModel to the existing collection
+                }
+            }
             //// Notify that the game state has changed
             OnGameStateChanged();
         }

@@ -1,23 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace CheckersImpl.Services
 {
-    public class PieceModel
+    public class PieceModel : INotifyPropertyChanged
     {
-        // Color of the piece, for example, "white" or "black"
-        public SolidColorBrush Color { get; private set; }
+        private SolidColorBrush _color;
+        private bool _isKing;
+        private int _row;
+        private int _column;
+        private bool _isVisible;
 
-        // Indicates if the piece has been crowned a king
-        public bool IsKing { get; private set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public bool IsVisible { get; set; }
+        public SolidColorBrush Color
+        {
+            get => _color;
+            set
+            {
+                if (_color != value)
+                {
+                    _color = value;
+                    OnPropertyChanged(nameof(Color));
+                }
+            }
+        }
+
+        public bool IsKing
+        {
+            get => _isKing;
+            private set // Made private as it's set internally
+            {
+                if (_isKing != value)
+                {
+                    _isKing = value;
+                    OnPropertyChanged(nameof(IsKing));
+                }
+            }
+        }
+
+        public int Row
+        {
+            get => _row;
+            set
+            {
+                if (_row != value)
+                {
+                    _row = value;
+                    OnPropertyChanged(nameof(Row));
+                }
+            }
+        }
+
+        public int Column
+        {
+            get => _column;
+            set
+            {
+                if (_column != value)
+                {
+                    _column = value;
+                    OnPropertyChanged(nameof(Column));
+                }
+            }
+        }
+
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (_isVisible != value)
+                {
+                    _isVisible = value;
+                    OnPropertyChanged(nameof(IsVisible));
+                }
+            }
+        }
 
         // Constructor
         public PieceModel(int row, int column, SolidColorBrush color)
@@ -38,15 +96,16 @@ namespace CheckersImpl.Services
             IsVisible = isVisible;
         }
 
-
         // Method to crown the piece a king
         public void CrownPiece()
         {
             IsKing = true;
         }
 
-        // You might also include methods to move the piece,
-        // which would be called by the game logic.
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
-
 }
