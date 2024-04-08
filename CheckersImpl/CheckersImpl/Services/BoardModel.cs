@@ -38,15 +38,18 @@ namespace CheckersImpl.Services
                     {
                         // Create a new piece and place it on the current tile
                         PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Purple)); // Use whatever color represents one set of pieces
+                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.White), myBoard[row, col]); // Use whatever color represents one set of pieces
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;
+                        myBoard[row, col].IsOccupied = true;
                     }
                     else if (color == "darkbrown" && row >= 5)
                     {
                         // Create a new piece and place it on the current tile
-                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Red)); // Use whatever color represents the other set of pieces
+                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Red), myBoard[row, col]); // Use whatever color represents the other set of pieces
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;
+                        myBoard[row, col].IsOccupied = true;
                     }
                 }
             }

@@ -28,6 +28,8 @@ public class TileModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    public PieceModel Piece { get; set; }
+    public bool IsSelected { get; set; }
 
     public TileModel(int row, int column, SolidColorBrush color)
     {
@@ -36,5 +38,6 @@ public class TileModel : INotifyPropertyChanged
         Color = color;
         IsOccupied = false;
         Piece = null;
+        IsSelected = false;
     }
 }
