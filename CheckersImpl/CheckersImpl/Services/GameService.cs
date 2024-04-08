@@ -23,7 +23,7 @@ namespace CheckersImpl.Services
             _fileService = new FileService();
             _statisticsService = new StatisticsService();
             this.Pieces = Pieces;
-
+            CurrentTurn = Player.PlayerOne;
         }
 
  
@@ -61,10 +61,27 @@ namespace CheckersImpl.Services
 
         public bool ValidateMove(PieceModel piece, TileModel targetTile)
         {
+            if (!piece.IsKing)
+            {
+                if (CurrentTurn == Player.PlayerOne)
+                {
+                    return IsValidMoveUpBottom(piece, targetTile);
+                }
+                else if (CurrentTurn == Player.PlayerTwo)
+                {
+                    return IsValidMoveBottomUp(piece, targetTile);
+                }
+                return false;
+            }
+            else
+            {
+                // King piece can move in any direction
+                return true;
+            }
             // Validate the move based on the rules of Checkers
             // This should involve checking for valid jump moves, king moves, etc.
             // Return true if the move is valid; otherwise, false
-            return true; // Placeholder
+            //return true; // Placeholder
         }
 
         public void MakeMove(PieceModel piece, TileModel targetTile)
@@ -111,7 +128,7 @@ namespace CheckersImpl.Services
         public bool IsValidMoveBottomUp(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row - 1
-                && (destinationTile.Column == selectedPiece.Column - 1 
+                && (destinationTile.Column == selectedPiece.Column - 1
                 || destinationTile.Column == selectedPiece.Column + 1)
                 && !destinationTile.IsOccupied;
         }
@@ -124,21 +141,46 @@ namespace CheckersImpl.Services
                 && !destinationTile.IsOccupied;
         }
 
-        public void MovePiece(PieceModel selectedPiece, TileModel sourceTile, TileModel destinationTile)
+        public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
-            if(!IsValidMoveUpBottom(selectedPiece, destinationTile) && !IsValidMoveBottomUp(selectedPiece, destinationTile))
+            // Check if the move is valid based on the player's turn and the piece's movement direction
+            //if ((CurrentTurn == Player.PlayerOne && IsValidMoveUpBottom(selectedPiece, destinationTile))
+            //    || (CurrentTurn == Player.PlayerTwo && IsValidMoveBottomUp(selectedPiece, destinationTile)))
+            if(ValidateMove(selectedPiece, destinationTile))
             {
-                throw new InvalidOperationException("Invalid move");
-            }
-            else
-            {
-                sourceTile.Piece = null;
-                sourceTile.IsOccupied = false;
+                // Update the source and destination tiles with the moved piece
+                selectedPiece.CurrentTile.Piece = null;
+                selectedPiece.CurrentTile.IsOccupied = false;
                 destinationTile.Piece = selectedPiece;
                 destinationTile.IsOccupied = true;
+                // Update the piece's row, column, and current tile
                 selectedPiece.Row = destinationTile.Row;
                 selectedPiece.Column = destinationTile.Column;
                 selectedPiece.CurrentTile = destinationTile;
+                // Check if the piece should be crowned
+                CrownPiece(selectedPiece);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid move");
+            }
+        }
+
+        public void CrownPiece(PieceModel piece)
+        {
+            if(CurrentTurn == Player.PlayerOne)
+            {
+                if(piece.Row == 0)
+                {
+                    piece.CrownPiece();
+                }
+            }
+            else if(CurrentTurn == Player.PlayerTwo)
+            {
+                if(piece.Row == 7)
+                {
+                    piece.CrownPiece();
+                }
             }
         }
     }
