@@ -37,7 +37,7 @@ namespace CheckersImpl.Services
                     if (color == "darkbrown" && row < 3)
                     {
                         // Create a new piece and place it on the current tile
-                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Purple)); // Use whatever color represents one set of pieces
+                        //PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Purple)); // Use whatever color represents one set of pieces
                         PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.White), myBoard[row, col]); // Use whatever color represents one set of pieces
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;

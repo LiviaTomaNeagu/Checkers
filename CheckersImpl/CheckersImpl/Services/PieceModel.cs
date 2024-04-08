@@ -77,13 +77,9 @@ namespace CheckersImpl.Services
             }
         }
         // Indicates if the piece has been crowned a king
-        public bool IsKing { get; private set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public bool IsVisible { get; set; }
         public bool IsSelected { get; set; }
         public TileModel CurrentTile { get; set; }
-        
+
         // Constructor
         public PieceModel(int row, int column, SolidColorBrush color, TileModel currentTile)
         {

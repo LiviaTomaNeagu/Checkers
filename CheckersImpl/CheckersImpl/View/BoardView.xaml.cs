@@ -137,7 +137,7 @@ namespace CheckersImpl.View
                 if (selectedPiece != null && destinationTile != null)
                 {
                     // Move the piece to the destination tile
-                    GameService gameService = new GameService();
+                    GameService gameService = new GameService(((BoardVM)DataContext).Pieces);
                     gameService.MovePiece(selectedPiece, selectedPiece.CurrentTile, destinationTile);
 
                     // After moving the piece, reset selectedPiece to null
