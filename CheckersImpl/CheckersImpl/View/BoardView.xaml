@@ -1,10 +1,11 @@
 ﻿<UserControl x:Class="CheckersImpl.View.BoardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CheckersImpl.View"
+             xmlns:ser="clr-namespace:CheckersImpl.Services"
              xmlns:vm="clr-namespace:CheckersImpl.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -13,13 +14,9 @@
         <vm:BoardVM/>
     </UserControl.DataContext>
 
-    <!--<UserControl.Resources>
-        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-    </UserControl.Resources>-->
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-
 
     <Grid>
         <!-- Display the squares in an ItemsControl -->
@@ -32,14 +29,13 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Border Background="{Binding Color}" Width="50" Height="50"
-                                MouseLeftButtonDown="TileWasSelected"/>
-                        <Ellipse Fill="{Binding Piece.Color}" 
-                                 Visibility="{Binding Piece.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                                 Width="25" Height="25" 
-                                 HorizontalAlignment="Center" 
-                                 VerticalAlignment="Center"
-                                 MouseLeftButtonDown="PieceWasSelected"/>
+                        <Border Background="{Binding Color}" MouseLeftButtonDown="SelectTile">
+                            <!-- Set DataContext here for the piece, not for the entire tile -->
+                            <Ellipse DataContext="{Binding Piece}" Fill="{Binding Color}" 
+                             Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                             Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"
+                             MouseLeftButtonDown="SelectPiece"/>
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

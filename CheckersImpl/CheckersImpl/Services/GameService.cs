@@ -8,7 +8,7 @@ namespace CheckersImpl.Services
 {
     internal class GameService
     {
-        public bool IsValidMove(PieceModel selectedPiece, TileModel destinationTile)
+        public bool IsValidMoveBottomUp(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row - 1
                 && (destinationTile.Column == selectedPiece.Column - 1 
@@ -16,9 +16,17 @@ namespace CheckersImpl.Services
                 && !destinationTile.IsOccupied;
         }
 
+        public bool IsValidMoveUpBottom(PieceModel selectedPiece, TileModel destinationTile)
+        {
+            return destinationTile.Row == selectedPiece.Row + 1
+                && (destinationTile.Column == selectedPiece.Column + 1
+                || destinationTile.Column == selectedPiece.Column - 1)
+                && !destinationTile.IsOccupied;
+        }
+
         public void MovePiece(PieceModel selectedPiece, TileModel sourceTile, TileModel destinationTile)
         {
-            if(!IsValidMove(selectedPiece, destinationTile))
+            if(!IsValidMoveUpBottom(selectedPiece, destinationTile) && !IsValidMoveBottomUp(selectedPiece, destinationTile))
             {
                 throw new InvalidOperationException("Invalid move");
             }
@@ -30,6 +38,7 @@ namespace CheckersImpl.Services
                 destinationTile.IsOccupied = true;
                 selectedPiece.Row = destinationTile.Row;
                 selectedPiece.Column = destinationTile.Column;
+                selectedPiece.CurrentTile = destinationTile;
             }
         }
     }
