@@ -65,11 +65,11 @@ namespace CheckersImpl.Services
             {
                 if (CurrentTurn == Player.PlayerOne)
                 {
-                    return IsValidMoveUpBottom(piece, targetTile);
+                    return IsValidMoveUpBottom(piece, targetTile) || IsValidJumpUpBottom(piece, targetTile);
                 }
                 else if (CurrentTurn == Player.PlayerTwo)
                 {
-                    return IsValidMoveBottomUp(piece, targetTile);
+                    return IsValidMoveBottomUp(piece, targetTile) || IsValidJumpBottomUp(piece, targetTile);
                 }
                 return false;
             }
@@ -78,29 +78,7 @@ namespace CheckersImpl.Services
                 // King piece can move in any direction
                 return true;
             }
-            // Validate the move based on the rules of Checkers
-            // This should involve checking for valid jump moves, king moves, etc.
-            // Return true if the move is valid; otherwise, false
-            //return true; // Placeholder
         }
-
-        public void MakeMove(PieceModel piece, TileModel targetTile)
-        {
-            //// Execute the move if valid and update the board state
-            //if (ValidateMove(piece, targetTile))
-            //{
-            //    // Example: Move the piece to the targetTile
-            //    // Update the piece's Tile property and the Tile's Piece property
-            //    // Check for any captures or if the piece should be kinged
-            //    // Update statistics if necessary
-            //    _statisticsService.Update(piece, targetTile);
-
-            //    // Notify that the game state has changed
-            //    OnGameStateChanged();
-            //}
-        }
-
-       
 
         private void OnGameStateChanged()
         {
@@ -139,6 +117,20 @@ namespace CheckersImpl.Services
                 || destinationTile.Column == selectedPiece.Column - 1);
         }
 
+        public bool IsValidJumpUpBottom(PieceModel selectedPiece, TileModel destinationTile)
+        {
+            return destinationTile.Row == selectedPiece.Row + 2
+                && (destinationTile.Column == selectedPiece.Column + 2
+                || destinationTile.Column == selectedPiece.Column - 2);
+        }
+
+        public bool IsValidJumpBottomUp(PieceModel selectedPiece, TileModel destinationTile)
+        {
+            return destinationTile.Row == selectedPiece.Row - 2
+                && (destinationTile.Column == selectedPiece.Column + 2
+                || destinationTile.Column == selectedPiece.Column - 2);
+        }
+
         public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
             // Check if the move is valid based on the player's turn and the piece's movement direction
@@ -160,6 +152,7 @@ namespace CheckersImpl.Services
                 selectedPiece.CurrentTile = destinationTile;
                 // Check if the piece should be crowned
                 CrownPiece(selectedPiece);
+                SwitchTurns();
             }
             else
             {
