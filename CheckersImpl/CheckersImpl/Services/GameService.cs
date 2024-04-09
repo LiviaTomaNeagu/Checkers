@@ -129,25 +129,26 @@ namespace CheckersImpl.Services
         {
             return destinationTile.Row == selectedPiece.Row - 1
                 && (destinationTile.Column == selectedPiece.Column - 1
-                || destinationTile.Column == selectedPiece.Column + 1)
-                && !destinationTile.IsOccupied;
+                || destinationTile.Column == selectedPiece.Column + 1);
         }
 
         public bool IsValidMoveUpBottom(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row + 1
                 && (destinationTile.Column == selectedPiece.Column + 1
-                || destinationTile.Column == selectedPiece.Column - 1)
-                && !destinationTile.IsOccupied;
+                || destinationTile.Column == selectedPiece.Column - 1);
         }
 
         public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
             // Check if the move is valid based on the player's turn and the piece's movement direction
-            //if ((CurrentTurn == Player.PlayerOne && IsValidMoveUpBottom(selectedPiece, destinationTile))
-            //    || (CurrentTurn == Player.PlayerTwo && IsValidMoveBottomUp(selectedPiece, destinationTile)))
             if(ValidateMove(selectedPiece, destinationTile))
             {
+                if(destinationTile.IsOccupied)
+                {
+                    destinationTile.Piece.CurrentTile.Piece = null;
+                    Pieces.Remove(destinationTile.Piece);
+                }
                 // Update the source and destination tiles with the moved piece
                 selectedPiece.CurrentTile.Piece = null;
                 selectedPiece.CurrentTile.IsOccupied = false;
@@ -170,14 +171,14 @@ namespace CheckersImpl.Services
         {
             if(CurrentTurn == Player.PlayerOne)
             {
-                if(piece.Row == 0)
+                if(piece.Row == 7)
                 {
                     piece.CrownPiece();
                 }
             }
             else if(CurrentTurn == Player.PlayerTwo)
             {
-                if(piece.Row == 7)
+                if(piece.Row == 0)
                 {
                     piece.CrownPiece();
                 }
