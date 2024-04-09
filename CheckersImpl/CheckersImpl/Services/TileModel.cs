@@ -39,4 +39,8 @@ public class TileModel : INotifyPropertyChanged
         Piece = null;
         IsSelected = false;
     }
+
+    public  TileModel()
+    {
+    }
 }

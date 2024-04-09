@@ -8,7 +8,24 @@ namespace CheckersImpl.ViewModels
     public class GameVM : INotifyPropertyChanged
     {
         private GameService _gameService;
-        public BoardVM boardVM { get; set; }
+        private BoardVM _boardVM;
+
+        public BoardVM boardVM
+        {
+            get { return _boardVM; }
+            set
+            {
+                if (_boardVM != value)
+                {
+                    _boardVM = value;
+                    OnPropertyChanged(nameof(BoardVM));
+                    if (_boardVM != null && _boardVM.DestinationTile != null)
+                    {
+                        _boardVM.DestinationTile.PropertyChanged += DestinationTile_PropertyChanged;
+                    }
+                }
+            }
+        }
 
         // Example property bound to by the view
         public Player CurrentPlayer
@@ -45,7 +62,18 @@ namespace CheckersImpl.ViewModels
             SaveGameCommand = new SaveGameCommand(SaveGame);
             LoadGameCommand = new RelayCommand(_ => LoadGame());
             //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
+
+            boardVM.PropertyChanged += DestinationTile_PropertyChanged;
         }
+
+        private void DestinationTile_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BoardVM.DestinationTile))
+            {
+                _gameService.MovePiece(boardVM.SelectedPiece, boardVM.DestinationTile);
+            }
+        }
+
 
         private void NewGame()
         {

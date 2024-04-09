@@ -15,6 +15,36 @@ namespace CheckersImpl.ViewModels
     {
         public BoardModel BoardModel { get; }
 
+        private PieceModel _selectedPiece;
+
+        public PieceModel SelectedPiece
+        {
+            get => _selectedPiece;
+            set
+            {
+                if (_selectedPiece != value)
+                {
+                    _selectedPiece = value;
+                    OnPropertyChanged(nameof(SelectedPiece));
+                }
+            }
+        }
+
+        private TileModel _destinationTile;
+        public TileModel DestinationTile
+        {
+            get => _destinationTile;
+            set
+            {
+                if (_destinationTile != value)
+                {
+                    _destinationTile = value;
+                    OnPropertyChanged(nameof(DestinationTile));
+                }
+            }
+        }
+
+
         private ObservableCollection<TileModel> _myVMBoard;
         public ObservableCollection<TileModel> myVMBoard
         {
@@ -53,6 +83,7 @@ namespace CheckersImpl.ViewModels
             InitializeBoard();
 
             Pieces.CollectionChanged += Pieces_CollectionChanged;
+            DestinationTile = new TileModel();
         }
 
         private void Pieces_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
