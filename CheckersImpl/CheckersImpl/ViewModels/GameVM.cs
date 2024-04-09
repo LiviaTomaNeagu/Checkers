@@ -71,6 +71,7 @@ namespace CheckersImpl.ViewModels
             if (e.PropertyName == nameof(BoardVM.DestinationTile))
             {
                 _gameService.MovePiece(boardVM.SelectedPiece, boardVM.DestinationTile);
+                OnPropertyChanged(nameof(CurrentPlayer));
             }
         }
 
