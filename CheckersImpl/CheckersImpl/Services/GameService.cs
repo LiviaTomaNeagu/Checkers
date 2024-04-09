@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CheckersImpl.Services
 {
@@ -66,17 +67,38 @@ namespace CheckersImpl.Services
             {
                 if (CurrentTurn == Player.PlayerOne)
                 {
-                    return IsValidMoveUpBottom(piece, targetTile) || IsValidJumpUpBottom(piece, targetTile);
+                    return IsValidMoveUpBottom(piece, targetTile);
                 }
                 else if (CurrentTurn == Player.PlayerTwo)
                 {
-                    return IsValidMoveBottomUp(piece, targetTile) || IsValidJumpBottomUp(piece, targetTile);
+                    return IsValidMoveBottomUp(piece, targetTile);
                 }
                 return false;
             }
             else
             {
                 // King piece can move in any direction
+                return true;
+            }
+        }
+
+        public bool ValidateJump(PieceModel piece, TileModel targetTile)
+        {
+            if (!piece.IsKing)
+            {
+                if (CurrentTurn == Player.PlayerOne)
+                {
+                    return IsValidJumpUpBottom(piece, targetTile);
+                }
+                else if (CurrentTurn == Player.PlayerTwo)
+                {
+                    return IsValidJumpBottomUp(piece, targetTile);
+                }
+                return false;
+            }
+            else
+            {
+                // King piece can jump in any direction
                 return true;
             }
         }
@@ -108,28 +130,32 @@ namespace CheckersImpl.Services
         {
             return destinationTile.Row == selectedPiece.Row - 1
                 && (destinationTile.Column == selectedPiece.Column - 1
-                || destinationTile.Column == selectedPiece.Column + 1);
+                || destinationTile.Column == selectedPiece.Column + 1)
+                && destinationTile.IsOccupied == false;
         }
 
         public bool IsValidMoveUpBottom(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row + 1
                 && (destinationTile.Column == selectedPiece.Column + 1
-                || destinationTile.Column == selectedPiece.Column - 1);
+                || destinationTile.Column == selectedPiece.Column - 1)
+                && destinationTile.IsOccupied == false; 
         }
 
         public bool IsValidJumpUpBottom(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row + 2
                 && (destinationTile.Column == selectedPiece.Column + 2
-                || destinationTile.Column == selectedPiece.Column - 2);
+                || destinationTile.Column == selectedPiece.Column - 2)
+                && destinationTile.IsOccupied == false;
         }
 
         public bool IsValidJumpBottomUp(PieceModel selectedPiece, TileModel destinationTile)
         {
             return destinationTile.Row == selectedPiece.Row - 2
                 && (destinationTile.Column == selectedPiece.Column + 2
-                || destinationTile.Column == selectedPiece.Column - 2);
+                || destinationTile.Column == selectedPiece.Column - 2)
+                && destinationTile.IsOccupied == false;
         }
 
         public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
@@ -137,11 +163,6 @@ namespace CheckersImpl.Services
             // Check if the move is valid based on the player's turn and the piece's movement direction
             if(ValidateMove(selectedPiece, destinationTile))
             {
-                if(destinationTile.IsOccupied)
-                {
-                    destinationTile.Piece.CurrentTile.Piece = null;
-                    Pieces.Remove(destinationTile.Piece);
-                }
                 // Update the source and destination tiles with the moved piece
                 selectedPiece.CurrentTile.Piece = null;
                 selectedPiece.CurrentTile.IsOccupied = false;
@@ -154,6 +175,21 @@ namespace CheckersImpl.Services
                 // Check if the piece should be crowned
                 CrownPiece(selectedPiece);
                 SwitchTurns();
+            }
+            else if(ValidateJump(selectedPiece, destinationTile))
+            {
+                // Calculate the row and column of the tile being jumped over
+                int jumpedRow = (destinationTile.Row > selectedPiece.Row) ? selectedPiece.Row + 1 : selectedPiece.Row - 1;
+                int jumpedColumn = (destinationTile.Column > selectedPiece.Column) ? selectedPiece.Column + 1 : selectedPiece.Column - 1;
+
+                // Check if there's an opponent's piece in the tile being jumped over
+                PieceModel jumpedPiece = Pieces.FirstOrDefault(p => p.Row == jumpedRow && p.Column == jumpedColumn); 
+                if (CurrentTurn == Player.PlayerTwo && jumpedPiece.Player == Player.PlayerOne 
+                    || CurrentTurn == Player.PlayerOne && jumpedPiece.Player == Player.PlayerTwo)
+                {
+                    jumpedPiece.CurrentTile.Piece = null;
+                    jumpedPiece.CurrentTile.IsOccupied = false;
+                }
             }
             else
             {

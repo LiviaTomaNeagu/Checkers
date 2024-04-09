@@ -10,7 +10,9 @@ namespace CheckersImpl.Services
         private bool _isKing;
         private int _row;
         private int _column;
-        private bool _isVisible;
+        private bool _isSelected;
+        private TileModel _currentTile;
+        private Player _player;
 
         public SolidColorBrush Color
         {
@@ -64,41 +66,64 @@ namespace CheckersImpl.Services
             }
         }
 
-        public bool IsVisible
+        public bool IsSelected
         {
-            get => _isVisible;
+            get => _isSelected;
             set
             {
-                if (_isVisible != value)
+                if (_isSelected != value)
                 {
-                    _isVisible = value;
-                    OnPropertyChanged(nameof(IsVisible));
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
                 }
             }
         }
-        // Indicates if the piece has been crowned a king
-        public bool IsSelected { get; set; }
-        public TileModel CurrentTile { get; set; }
+
+        public TileModel CurrentTile
+        {
+            get => _currentTile;
+            set
+            {
+                if (_currentTile != value)
+                {
+                    _currentTile = value;
+                    OnPropertyChanged(nameof(CurrentTile));
+                }
+            }
+        }
+
+        public Player Player
+        {
+            get => _player;
+            set
+            {
+                if (_player != value)
+                {
+                    _player = value;
+                    OnPropertyChanged(nameof(Player));
+                }
+            }
+        }
 
         // Constructor
-        public PieceModel(int row, int column, SolidColorBrush color, TileModel currentTile)
+        public PieceModel(int row, int column, SolidColorBrush color, TileModel currentTile, Player player)
         {
             Row = row;
             Column = column;
             Color = color;
             IsKing = false;
-            IsVisible = true;
             IsSelected = false;
             CurrentTile = currentTile;
+            Player = player;
         }
 
-        public PieceModel(SolidColorBrush color, bool isKing, int row, int column, bool isVisible)
+        public PieceModel(SolidColorBrush color, bool isKing, int row, int column)
         {
             Color = color;
             IsKing = isKing;
             Row = row;
             Column = column;
-            IsVisible = isVisible;
+            IsSelected = false;
         }
 
         // Method to crown the piece a king

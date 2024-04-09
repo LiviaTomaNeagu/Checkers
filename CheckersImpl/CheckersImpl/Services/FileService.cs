@@ -81,7 +81,6 @@ namespace CheckersImpl.Services
                         rowData.Add(new
                         {
                             PieceColor = tile.Piece.Color.ToString(),
-                            IsPieceVisible = tile.Piece.IsVisible,
                             IsPieceKing = tile.Piece.IsKing,
                             Position = new { Row = i, Column = j }
                         });
@@ -113,7 +112,7 @@ namespace CheckersImpl.Services
                         var color = ConvertStringToColor(tile.PieceColor);
 
                         // Create and configure the PieceModel, including position
-                        var piece = new PieceModel(new SolidColorBrush(color), tile.IsPieceKing, row, column, tile.IsPieceVisible);
+                        var piece = new PieceModel(new SolidColorBrush(color), tile.IsPieceKing, row, column);
                         pieces.Add(piece);
                     }
                 }
