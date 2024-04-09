@@ -16,7 +16,8 @@ namespace CheckersImpl.Services
 
         private FileService _fileService;
         private StatisticsService _statisticsService;
-        public Player CurrentTurn { get; private set; }
+        public Player CurrentTurn { get; set; }
+
 
         public GameService(ObservableCollection<PieceModel> Pieces)
         {
