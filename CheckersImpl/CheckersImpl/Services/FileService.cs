@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace CheckersImpl.Services
 {
@@ -44,12 +45,13 @@ namespace CheckersImpl.Services
                 return Colors.Transparent;
             }
         }
-        public void SaveGame(BoardModel boardModel, Player currentPlayer)
+        public void SaveGame(ObservableCollection<PieceModel> pieceModels, Player currentPlayer, bool allowMultipleJumps)
         {
             var saveData = new
             {
-                Board = GetBoardData(boardModel),
-                CurrentTurn = currentPlayer.ToString()
+                Pieces = pieceModels,
+                CurrentTurn = currentPlayer.ToString(),
+                AllowMultipleJumps = allowMultipleJumps
             };
 
             SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -64,64 +66,8 @@ namespace CheckersImpl.Services
             {
                 string json = JsonConvert.SerializeObject(saveData, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(saveFileDialog.FileName, json);
-            }
+            }   
         }
-
-        private List<List<object>> GetBoardData(BoardModel boardModel)
-        {
-            var boardData = new List<List<object>>();
-            for (int i = 0; i < boardModel.myBoard.GetLength(0); i++)
-            {
-                var rowData = new List<object>();
-                for (int j = 0; j < boardModel.myBoard.GetLength(1); j++)
-                {
-                    var tile = boardModel.myBoard[i, j];
-                    if (tile.Piece != null)
-                    {
-                        rowData.Add(new
-                        {
-                            PieceColor = tile.Piece.Color.ToString(),
-                            IsPieceKing = tile.Piece.IsKing,
-                            Position = new { Row = i, Column = j }
-                        });
-                    }
-                    else
-                    {
-                        rowData.Add(null);
-                    }
-                }
-                boardData.Add(rowData);
-            }
-            return boardData;
-        }
-
-
-
-        private PieceModel[] CreatePiecesFromLoadedData(List<List<TileData>> loadedBoard)
-        {
-            List<PieceModel> pieces = new List<PieceModel>();
-
-            for (int row = 0; row < loadedBoard.Count; row++)
-            {
-                for (int column = 0; column < loadedBoard[row].Count; column++)
-                {
-                    var tile = loadedBoard[row][column];
-                    if (tile != null && tile.PieceColor != null && tile.IsPieceVisible != null)
-                    {
-                        // Convert string color to System.Windows.Media.Color
-                        var color = ConvertStringToColor(tile.PieceColor);
-
-                        // Create and configure the PieceModel, including position
-                        var piece = new PieceModel(new SolidColorBrush(color), tile.IsPieceKing, row, column);
-                        pieces.Add(piece);
-                    }
-                }
-            }
-
-            return pieces.ToArray();
-        }
-
-
 
         public GameLoadResult LoadGame()
         {
@@ -146,11 +92,17 @@ namespace CheckersImpl.Services
 
                     if (loadedData != null)
                     {
-                        PieceModel[] boardModel = CreatePiecesFromLoadedData(loadedData.Board);
+                        // Create pieces from loaded data
+                        ObservableCollection<PieceModel> piecesModel = loadedData.Pieces;
+                        // Parse the current player from loaded data
                         Player currentPlayer = Enum.TryParse<Player>(loadedData.CurrentTurn, out var parsedPlayer) ? parsedPlayer : Player.None;
+                        // Extract the AllowMultipleJumps flag from loaded data
+                        bool allowMultipleJumps = loadedData.AllowMultipleJumps;
 
-                        return new GameLoadResult(boardModel, currentPlayer);
+                        // Assuming GameLoadResult can accept a boolean for allowMultipleJumps
+                        return new GameLoadResult(piecesModel, currentPlayer, allowMultipleJumps);
                     }
+
                 }
                 catch (IOException ex)
                 {
@@ -171,44 +123,23 @@ namespace CheckersImpl.Services
 
         public class GameLoadResult
         {
-            public PieceModel[] PieceModel { get; set; }
+            public ObservableCollection<PieceModel> PieceModel { get; set; }
             public Player CurrentPlayer { get; set; }
+            public bool AllowMultipleJumps { get; set; }
 
-            public GameLoadResult(PieceModel[] pieceModel, Player currentPlayer)
+            public GameLoadResult(ObservableCollection<PieceModel> pieceModel, Player currentPlayer, bool allowMultipleJumps)
             {
                 PieceModel = pieceModel;
                 CurrentPlayer = currentPlayer;
+                AllowMultipleJumps = allowMultipleJumps;
             }
         }
 
         public class SaveData
         {
-            public List<List<TileData>> Board { get; set; }
+            public ObservableCollection<PieceModel> Pieces { get; set; }
             public string CurrentTurn { get; set; }
+            public bool AllowMultipleJumps { get; set; }
         }
-
-    public class TileData
-    {
-        public bool IsOccupied { get; set; }
-        public string PieceColor { get; set; } // You might want to change the type to a more appropriate one
-        public bool IsPieceKing { get; set; }
-        public bool IsPieceVisible { get; set; }
-        public Position Position { get; set; } // Define Position property
-
-        // Constructor to initialize properties
-        public TileData(int row, int column)
-        {
-            Position = new Position { Row = row, Column = column };
-        }
-    }
-
-    // Define Position class to represent the row and column
-    public class Position
-    {
-        public int Row { get; set; }
-        public int Column { get; set; }
-    }
-
-
 
 }

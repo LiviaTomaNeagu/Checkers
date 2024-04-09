@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace CheckersImpl.Services
 {
@@ -14,10 +15,11 @@ namespace CheckersImpl.Services
     public class GameService
     {
         public ObservableCollection<PieceModel> Pieces;
-
         private FileService _fileService;
         private StatisticsService _statisticsService;
         public Player CurrentTurn { get; set; }
+
+        public bool AllowMultipleJumps = false;
 
 
         public GameService(ObservableCollection<PieceModel> Pieces)
@@ -42,7 +44,7 @@ namespace CheckersImpl.Services
         public void SaveGame()
         {
             //// Use FileService to save the current game state to a file
-           // _fileService.SaveGame(_boardModel, CurrentTurn);
+            _fileService.SaveGame(Pieces, CurrentTurn, AllowMultipleJumps);
         }
 
         public void LoadGame()
@@ -50,11 +52,18 @@ namespace CheckersImpl.Services
             //// Use FileService to load the game state from a file
             GameLoadResult loadResult = _fileService.LoadGame();
             if(loadResult != null)
-            {//CurrentTurn = loadResult.CurrentPlayer;
+            {
+                CurrentTurn = loadResult.CurrentPlayer;
+                AllowMultipleJumps = loadResult.AllowMultipleJumps;
+                foreach(var piece in Pieces)
+                {
+                    piece.CurrentTile.Piece = null;
+                }
                 Pieces.Clear(); // Clear the existing collection
                 foreach (var piece in loadResult.PieceModel)
                 {
                     Pieces.Add(piece); // Add elements from loadResult.PieceModel to the existing collection
+                    
                 }
             }
             //// Notify that the game state has changed

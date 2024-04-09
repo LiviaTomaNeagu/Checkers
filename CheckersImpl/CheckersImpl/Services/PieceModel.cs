@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Windows.Media;
 
@@ -79,6 +80,8 @@ namespace CheckersImpl.Services
             }
         }
 
+        [JsonIgnore]
+
         public TileModel CurrentTile
         {
             get => _currentTile;
@@ -117,13 +120,18 @@ namespace CheckersImpl.Services
             Player = player;
         }
 
-        public PieceModel(SolidColorBrush color, bool isKing, int row, int column)
+        public PieceModel(SolidColorBrush color, bool isKing, int row, int column, TileModel currentTile)
         {
             Color = color;
             IsKing = isKing;
             Row = row;
             Column = column;
             IsSelected = false;
+            CurrentTile = currentTile;
+        }
+
+        public PieceModel()
+        {
         }
 
         // Method to crown the piece a king

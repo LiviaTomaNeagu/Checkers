@@ -8,6 +8,22 @@ namespace CheckersImpl.ViewModels
     public class GameVM : INotifyPropertyChanged
     {
         private GameService _gameService;
+
+        private bool _allowMultipleJumps = false;
+        public bool AllowMultipleJumps
+        {
+            get => _gameService.AllowMultipleJumps;
+            set
+            {
+                if (_allowMultipleJumps != value)
+                {
+                    _allowMultipleJumps = value;
+                    _gameService.AllowMultipleJumps = value;
+                    OnPropertyChanged(nameof(AllowMultipleJumps));
+                }
+            }
+        }
+
         private BoardVM _boardVM;
 
         public BoardVM boardVM
@@ -31,6 +47,16 @@ namespace CheckersImpl.ViewModels
         public Player CurrentPlayer
         {
             get => _gameService.CurrentTurn;
+            set
+            {
+                if (_gameService.CurrentTurn != value)
+                {
+                    CurrentPlayer = value;
+                    _gameService.CurrentTurn = value;
+                    OnPropertyChanged(nameof(CurrentPlayer));
+                }
+                
+            }
         }
 
         // Commands
@@ -59,7 +85,7 @@ namespace CheckersImpl.ViewModels
            
             // Initialize commands
             NewGameCommand = new RelayCommand(_ => NewGame());
-            SaveGameCommand = new SaveGameCommand(SaveGame);
+            SaveGameCommand = new RelayCommand(_ => SaveGame());
             LoadGameCommand = new RelayCommand(_ => LoadGame());
             //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
 
@@ -87,6 +113,7 @@ namespace CheckersImpl.ViewModels
         private void SaveGame()
         {
             _gameService.SaveGame();
+            
             // Additional logic if needed
         }
 
@@ -94,11 +121,18 @@ namespace CheckersImpl.ViewModels
         {
             _gameService.LoadGame();
 
-            OnPropertyChanged(nameof(boardVM)); // Notify that boardVM itself might have new data.
-            boardVM.OnPropertyChanged(nameof(boardVM.Pieces));
-            boardVM.OnPropertyChanged(nameof(boardVM.myVMBoard));
-            
-            
+           
+            boardVM.Pieces = _gameService.Pieces;
+            AllowMultipleJumps = _gameService.AllowMultipleJumps;
+           // CurrentPlayer = _gameService.CurrentTurn;
+            foreach (var piece in boardVM.Pieces)
+            {
+                piece.CurrentTile = boardVM.myVMBoard[piece.Row * 8 + piece.Column];
+                piece.CurrentTile.Piece = piece;
+            }
+            OnPropertyChanged(nameof(boardVM));
+            OnPropertyChanged(nameof(CurrentPlayer));
+
         }
 
         private void MakeMove(object parameter)

@@ -37,23 +37,24 @@
             <TextBlock Text="Information" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0"/>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Allow Multiple Jump " Margin="0,5,0,0" VerticalAlignment="Center"/>
-                <ToggleButton Width="50" Height="41" VerticalAlignment="Center" HorizontalAlignment="Right" >
+                <ToggleButton Width="50" Height="41" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding AllowMultipleJumps, Mode=TwoWay}">
                     <ToggleButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
                             <Grid>
                                 <!-- Outer rectangle with rounded corners -->
                                 <Rectangle x:Name="backgroundRectangle" Fill="#D3D3D3" Width="50" Height="25" RadiusX="14" RadiusY="25"/>
                                 <!-- Inner rectangle with rounded corners -->
-                                <Rectangle x:Name="toggleRectangle" Fill="#000000" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,25,0"/>
+                                <Rectangle x:Name="toggleRectangle" Fill="White" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,25,0"/>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="Green"/>
+                                    <Setter TargetName="backgroundRectangle" Property="Fill" Value="Green"/>
+                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="White"/>
                                     <Setter TargetName="toggleRectangle" Property="Margin" Value="25,5,5,5"/>
                                 </Trigger>
                                 <Trigger Property="IsChecked" Value="False">
-                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="#000000"/>
+                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="White"/>
                                     <Setter TargetName="toggleRectangle" Property="Margin" Value="5,5,25,5"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -80,7 +81,7 @@
                  <!--<Run Text="'s turn" />--> 
               </TextBlock>
             <TextBlock Text="choose your move!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="70" FontSize="22" FontStyle="Italic"/>
-            <Button Content="End Turn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25" Width="100" Height="30"/>
+            <Button Content="End Turn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25" Width="100" Height="30" IsEnabled="{Binding AllowMultipleJumps}"/>
 
         </Grid>
     </DockPanel>
