@@ -161,22 +161,7 @@ namespace CheckersImpl.Services
         public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
             // Check if the move is valid based on the player's turn and the piece's movement direction
-            if(ValidateMove(selectedPiece, destinationTile))
-            {
-                // Update the source and destination tiles with the moved piece
-                selectedPiece.CurrentTile.Piece = null;
-                selectedPiece.CurrentTile.IsOccupied = false;
-                destinationTile.Piece = selectedPiece;
-                destinationTile.IsOccupied = true;
-                // Update the piece's row, column, and current tile
-                selectedPiece.Row = destinationTile.Row;
-                selectedPiece.Column = destinationTile.Column;
-                selectedPiece.CurrentTile = destinationTile;
-                // Check if the piece should be crowned
-                CrownPiece(selectedPiece);
-                SwitchTurns();
-            }
-            else if(ValidateJump(selectedPiece, destinationTile))
+            if(ValidateJump(selectedPiece, destinationTile))
             {
                 // Calculate the row and column of the tile being jumped over
                 int jumpedRow = (destinationTile.Row > selectedPiece.Row) ? selectedPiece.Row + 1 : selectedPiece.Row - 1;
@@ -190,6 +175,21 @@ namespace CheckersImpl.Services
                     jumpedPiece.CurrentTile.Piece = null;
                     jumpedPiece.CurrentTile.IsOccupied = false;
                 }
+            }
+            if(ValidateMove(selectedPiece, destinationTile) || ValidateJump(selectedPiece, destinationTile))
+            {
+                // Update the source and destination tiles with the moved piece
+                selectedPiece.CurrentTile.Piece = null;
+                selectedPiece.CurrentTile.IsOccupied = false;
+                destinationTile.Piece = selectedPiece;
+                destinationTile.IsOccupied = true;
+                // Update the piece's row, column, and current tile
+                selectedPiece.Row = destinationTile.Row;
+                selectedPiece.Column = destinationTile.Column;
+                selectedPiece.CurrentTile = destinationTile;
+                // Check if the piece should be crowned
+                CrownPiece(selectedPiece);
+                SwitchTurns();
             }
             else
             {
