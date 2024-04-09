@@ -9,15 +9,6 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <!-- Set DataContext to an instance of BoardVM -->
-    <!--<UserControl.DataContext>
-        <vm:BoardVM/>
-    </UserControl.DataContext>-->
-
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </UserControl.Resources>
-
     <Grid>
         <!-- Display the squares in an ItemsControl -->
         <ItemsControl ItemsSource="{Binding myVMBoard}">
@@ -31,8 +22,7 @@
                     <Grid>
                         <Border Background="{Binding Color}" MouseLeftButtonDown="SelectTile">
                             <!-- Set DataContext here for the piece, not for the entire tile -->
-                            <Ellipse DataContext="{Binding Piece}" Fill="{Binding Color}" 
-                             Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                            <Ellipse DataContext="{Binding Piece}" Fill="{Binding Color}"
                              Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"
                              MouseLeftButtonDown="SelectPiece"/>
                         </Border>
