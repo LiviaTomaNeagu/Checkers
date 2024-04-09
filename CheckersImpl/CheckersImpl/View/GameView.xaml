@@ -74,7 +74,12 @@
             </Border>
 
             <!-- Indicator pentru rândul curent -->
-            <TextBlock Text="Player's 1 turn" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40" FontSize="26" FontStyle="Italic" />
+            <TextBlock Text="{Binding CurrentPlayer}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40" FontSize="26" FontStyle="Italic">
+                 <!--<Run Text="It's "/>--> 
+                 <!--<Run Text="{Binding CurrentPlayer}" />--> 
+                 <!--<Run Text="'s turn" />--> 
+              </TextBlock>
+            <TextBlock Text="choose your move!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="70" FontSize="22" FontStyle="Italic"/>
             <Button Content="End Turn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25" Width="100" Height="30"/>
 
         </Grid>
