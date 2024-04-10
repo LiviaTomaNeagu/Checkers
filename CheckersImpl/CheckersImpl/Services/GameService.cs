@@ -97,7 +97,7 @@ namespace CheckersImpl.Services
             // Check if there's an opponent's piece in the tile being jumped over
             PieceModel jumpedPiece = Pieces.FirstOrDefault(p => p.Row == jumpedRow && p.Column == jumpedColumn);
 
-            if (jumpedPiece.Player != CurrentTurn || jumpedPiece == null)
+            if (jumpedPiece != null && jumpedPiece.Player != CurrentTurn )
             {
                 if (!piece.IsKing)
                 {

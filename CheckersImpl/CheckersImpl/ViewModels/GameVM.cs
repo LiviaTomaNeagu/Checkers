@@ -107,6 +107,7 @@ namespace CheckersImpl.ViewModels
         {
             _gameService.CurrentTurn = Player.PlayerOne;
             boardVM = new BoardVM();
+            _gameService.Pieces = boardVM.Pieces;
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
 
             OnPropertyChanged(nameof(CurrentPlayer));
