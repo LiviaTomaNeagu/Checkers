@@ -25,7 +25,9 @@ namespace CheckersImpl.ViewModels
                 if (_selectedPiece != value)
                 {
                     _selectedPiece = value;
+                    FindPossibleMoves();
                     OnPropertyChanged(nameof(SelectedPiece));
+                    OnPropertyChanged(nameof(myVMBoard));
                 }
             }
         }
@@ -143,6 +145,74 @@ namespace CheckersImpl.ViewModels
         public virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void ChangeColorsPlayerOne()
+        {
+            if (myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
+            {
+                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
+            {
+                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
+                && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 1].IsOccupied == true
+                && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 1].Piece.Player == Player.PlayerTwo)
+            {
+                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
+                && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 1].IsOccupied == true
+                && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 1].Piece.Player == Player.PlayerTwo)
+            {
+                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+            }
+        }
+
+        private void ChangeColorsPlayerTwo()
+        {
+            if (myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
+            {
+                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
+            {
+                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
+                && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 1].IsOccupied == true
+                && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 1].Piece.Player == Player.PlayerTwo)
+            {
+                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+            }
+            if (myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
+                && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 1].IsOccupied == true
+                && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 1].Piece.Player == Player.PlayerTwo)
+            {
+                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+            }
+        }
+
+        private void FindPossibleMoves()
+        {
+            if(!_selectedPiece.IsKing)
+            {
+                if (_selectedPiece.Player == Player.PlayerOne)
+                {
+                    ChangeColorsPlayerOne();
+                }
+                else
+                {
+                    ChangeColorsPlayerTwo();
+                }
+            }
+            else
+            {
+                ChangeColorsPlayerOne();
+                ChangeColorsPlayerTwo();
+            }
         }
 
     }
