@@ -73,6 +73,7 @@ namespace CheckersImpl.ViewModels
             }
         }
 
+        
 
         public BoardVM()
         {

@@ -40,6 +40,7 @@ namespace CheckersImpl.ViewModels
                     {
                         _boardVM.DestinationTile.PropertyChanged += DestinationTile_PropertyChanged;
                     }
+
                 }
             }
         }
@@ -60,6 +61,34 @@ namespace CheckersImpl.ViewModels
             }
         }
 
+        public int PlayerOnePieces
+        {
+            get => _gameService.PlayerOnePieces;
+            set
+            {
+                if (_gameService.PlayerOnePieces != value)
+                {
+                    _gameService.PlayerOnePieces = value;
+                    PlayerOnePieces = value;
+                    OnPropertyChanged(nameof(PlayerOnePieces));
+                }
+            }
+        }
+
+        public int PlayerTwoPieces
+        {
+            get => _gameService.PlayerTwoPieces;
+            set
+            {
+                if (_gameService.PlayerTwoPieces != value)
+                {
+                    PlayerTwoPieces = value;
+                    _gameService.PlayerTwoPieces = value;
+                    OnPropertyChanged(nameof(PlayerTwoPieces));
+                }
+            }
+        }
+
         // Commands
         public ICommand NewGameCommand { get; private set; }
         public ICommand SaveGameCommand { get; private set; }
@@ -77,7 +106,48 @@ namespace CheckersImpl.ViewModels
                 }
             }
         }
-        public ICommand MakeMoveCommand { get; private set; }
+
+        private ICommand _statisticsCommand;
+        public ICommand StatisticsCommand
+        {
+            get { return _statisticsCommand; }
+            set
+            {
+                if (_statisticsCommand != value)
+                {
+                    _statisticsCommand = value;
+                    OnPropertyChanged(nameof(StatisticsCommand));
+                }
+            }
+        }
+
+        private string statistics;
+        public string Statistics
+        {
+            get => statistics;
+            set
+            {
+                if (statistics != value)
+                {
+                    statistics = value;
+                    OnPropertyChanged(nameof(Statistics));
+                }
+            }
+        }
+
+        private ICommand _endTurnCommand;
+        public ICommand EndTurnCommand
+        {
+            get => _endTurnCommand;
+            set
+            {
+                if(_endTurnCommand != value)
+                {
+                    _endTurnCommand = value;
+                    OnPropertyChanged(nameof(EndTurnCommand));
+                }
+            }
+        }
 
         public GameVM()
         {
@@ -88,10 +158,13 @@ namespace CheckersImpl.ViewModels
             NewGameCommand = new RelayCommand(_ => NewGame());
             SaveGameCommand = new RelayCommand(_ => SaveGame());
             LoadGameCommand = new RelayCommand(_ => LoadGame());
+            StatisticsCommand = new RelayCommand(_ => StatisticsGame());
+            EndTurnCommand = new RelayCommand(_ => EndTurn());
             //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
 
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
         }
+
 
         private void DestinationTile_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -99,6 +172,8 @@ namespace CheckersImpl.ViewModels
             {
                 _gameService.MovePiece(boardVM.SelectedPiece, boardVM.DestinationTile);
                 OnPropertyChanged(nameof(CurrentPlayer));
+                OnPropertyChanged(nameof(PlayerOnePieces));
+                OnPropertyChanged(nameof(PlayerTwoPieces));
             }
         }
 
@@ -129,23 +204,44 @@ namespace CheckersImpl.ViewModels
            
             boardVM.Pieces = _gameService.Pieces;
             AllowMultipleJumps = _gameService.AllowMultipleJumps;
-           // CurrentPlayer = _gameService.CurrentTurn;
+            // CurrentPlayer = _gameService.CurrentTurn;
+
+            _gameService.PlayerOnePieces = 0;
+            _gameService.PlayerTwoPieces = 0;
             foreach (var piece in boardVM.Pieces)
             {
                 piece.CurrentTile = boardVM.myVMBoard[piece.Row * 8 + piece.Column];
                 piece.CurrentTile.Piece = piece;
+                piece.CurrentTile.IsOccupied = true;
+                if (piece.Player == Player.PlayerOne)
+                {
+                    _gameService.PlayerOnePieces++;
+                }
+                else if (piece.Player == Player.PlayerTwo)
+                {
+                    _gameService.PlayerTwoPieces++;
+                }
             }
+
+
+            
+
             OnPropertyChanged(nameof(boardVM));
             OnPropertyChanged(nameof(CurrentPlayer));
 
         }
 
-        private void MakeMove(object parameter)
+        private void StatisticsGame()
         {
-            // Convert parameter to your move type and call the corresponding method in GameService
-            // _gameService.MakeMove(move);
+           Statistics = _gameService.ShowStatistics();
+        }
+
+        private void EndTurn()
+        {
+            _gameService.EndTurn = true;
+            boardVM.SelectedPiece.alreadyJumped= false;
+            _gameService.SwitchTurns();
             OnPropertyChanged(nameof(CurrentPlayer));
-            // Update relevant properties
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

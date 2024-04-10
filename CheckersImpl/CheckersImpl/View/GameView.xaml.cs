@@ -37,10 +37,20 @@ namespace CheckersImpl.View
 
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+     
+
+        private void MenuAllow_Click(object sender, RoutedEventArgs e)
         {
-            FileService fileService = new FileService();
-            //fileService.SaveGame(null, null);
+            
+            if(AllowTextBox.Visibility == Visibility.Visible)
+            {
+                AllowTextBox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                AllowTextBox.Visibility = Visibility.Visible;
+            }
+
         }
     }
 }
