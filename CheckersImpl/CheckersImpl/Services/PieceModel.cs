@@ -14,6 +14,7 @@ namespace CheckersImpl.Services
         private bool _isSelected;
         private TileModel _currentTile;
         private Player _player;
+        public bool alreadyJumped = false;
 
         public SolidColorBrush Color
         {
