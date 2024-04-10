@@ -25,9 +25,12 @@ namespace CheckersImpl.ViewModels
                 if (_selectedPiece != value)
                 {
                     _selectedPiece = value;
-                    FindPossibleMoves();
-                    OnPropertyChanged(nameof(SelectedPiece));
-                    OnPropertyChanged(nameof(myVMBoard));
+                    if(_selectedPiece != null)
+                    {
+                        FindPossibleMoves();
+                        OnPropertyChanged(nameof(SelectedPiece));
+                    }
+                    
                 }
             }
         }
@@ -214,6 +217,7 @@ namespace CheckersImpl.ViewModels
                 ChangeColorsPlayerOne();
                 ChangeColorsPlayerTwo();
             }
+            OnPropertyChanged(nameof(myVMBoard));
         }
 
     }

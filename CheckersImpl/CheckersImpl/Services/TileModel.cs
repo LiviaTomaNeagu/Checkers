@@ -6,7 +6,20 @@ public class TileModel : INotifyPropertyChanged
 {
     public int Row { get; set; }
     public int Column { get; set; }
-    public SolidColorBrush Color { get; set; }
+
+    private SolidColorBrush _color;
+    public SolidColorBrush Color
+    {
+        get => _color;
+        set
+        {
+            if (_color != value)
+            {
+                _color = value;
+                OnPropertyChanged(nameof(Color));
+            }
+        }
+    }
     public bool IsOccupied { get; set; }
     private PieceModel _piece;
     public PieceModel Piece
