@@ -33,12 +33,9 @@ namespace CheckersImpl.Services
  
         public void StartNewGame()
         {
-            //// Initialize or reset the game board to its starting state
-            //_boardModel = new BoardModel();
-            //// Possible initialization of statistics or other relevant game start actions
-            //_statisticsService.Reset();
+
             //// Notify that the game state has changed
-            //OnGameStateChanged();
+            OnGameStateChanged();
         }
 
         public void SaveGame()

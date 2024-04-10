@@ -16,35 +16,7 @@ namespace CheckersImpl.Services
 {
     public class FileService
     {
-        private Color ConvertStringToColor(string colorString)
-        {
-            // First, try to use a known color name
-            var colorProperty = typeof(Colors).GetProperty(colorString, BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase);
-            if (colorProperty != null)
-            {
-                return (Color)colorProperty.GetValue(null);
-            }
-
-            // If not a known name, try to parse a hexadecimal color value
-            try
-            {
-                // Add handling for shorthand hex codes (e.g., "#FFF")
-                if (colorString.StartsWith("#") && colorString.Length == 4)
-                {
-                    string r = colorString.Substring(1, 1);
-                    string g = colorString.Substring(2, 1);
-                    string b = colorString.Substring(3, 1);
-                    colorString = $"#{r}{r}{g}{g}{b}{b}";
-                }
-
-                return (Color)ColorConverter.ConvertFromString(colorString);
-            }
-            catch
-            {
-                // Return a default color if parsing fails
-                return Colors.Transparent;
-            }
-        }
+       
         public void SaveGame(ObservableCollection<PieceModel> pieceModels, Player currentPlayer, bool allowMultipleJumps)
         {
             var saveData = new

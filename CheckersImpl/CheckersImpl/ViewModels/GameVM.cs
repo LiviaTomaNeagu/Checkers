@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using CheckersImpl.Services;
 using CheckersImpl.Commands;
+using System.Data;
 
 namespace CheckersImpl.ViewModels
 {
@@ -104,7 +105,10 @@ namespace CheckersImpl.ViewModels
 
         private void NewGame()
         {
-            _gameService.StartNewGame();
+            _gameService.CurrentTurn = Player.PlayerOne;
+            boardVM = new BoardVM();
+            boardVM.PropertyChanged += DestinationTile_PropertyChanged;
+
             OnPropertyChanged(nameof(CurrentPlayer));
             OnPropertyChanged(nameof(boardVM));
             // Update any other relevant properties or perform additional tasks

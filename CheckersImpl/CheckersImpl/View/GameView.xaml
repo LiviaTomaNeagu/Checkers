@@ -19,7 +19,7 @@
 
                     <Menu>
                         <StackPanel Orientation="Vertical">
-                            <MenuItem Header="New Game"/>
+                            <MenuItem Header="New Game" Command="{Binding NewGameCommand}"/>
                             <MenuItem Header="Save" Command="{Binding SaveGameCommand}"/>
                             <MenuItem Header="Open" Command="{Binding LoadGameCommand}"/>
                             <Separator/>
