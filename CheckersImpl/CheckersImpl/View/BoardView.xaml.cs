@@ -59,11 +59,20 @@ namespace CheckersImpl.View
                     ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
                 }
 
+                if (((BoardVM)DataContext).SelectedPiece != null && ((BoardVM)DataContext).SelectedPiece == newlySelectedPiece)
+                {
+                    ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
+                    newlySelectedPiece = null;
+                }
+
                 // Update the selected piece
                 ((BoardVM)DataContext).SelectedPiece = newlySelectedPiece;
 
-                // Select the newly clicked piece
-                ((BoardVM)DataContext).SelectedPiece.IsSelected = true;
+                if (((BoardVM)DataContext).SelectedPiece != null)
+                {
+                    // Select the newly clicked piece
+                    ((BoardVM)DataContext).SelectedPiece.IsSelected = true;
+                }
             }
         }
 

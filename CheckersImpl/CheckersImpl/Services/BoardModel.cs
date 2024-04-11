@@ -46,7 +46,7 @@ namespace CheckersImpl.Services
                     else if (color == "darkbrown" && row >= 5)
                     {
                         // Create a new piece and place it on the current tile
-                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Red), myBoard[row, col], Player.PlayerTwo); // Use whatever color represents the other set of pieces
+                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Black), myBoard[row, col], Player.PlayerTwo); // Use whatever color represents the other set of pieces
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;
                         myBoard[row, col].IsOccupied = true;
@@ -60,9 +60,9 @@ namespace CheckersImpl.Services
             switch (color)
             {
                 case "lightbrown":
-                    return new SolidColorBrush(Colors.Pink);
+                    return new SolidColorBrush(Colors.Beige);
                 case "darkbrown":
-                    return new SolidColorBrush(Colors.Plum);
+                    return new SolidColorBrush(Colors.Brown);
                 default:
                     return new SolidColorBrush(Colors.Transparent);
             }
