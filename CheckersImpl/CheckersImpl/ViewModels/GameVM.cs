@@ -234,18 +234,15 @@ namespace CheckersImpl.ViewModels
 
         private void StatisticsGame()
         {
-            //Statistics = _gameService.ShowStatistics();
-            Statistics = "Hello";
+            Statistics = _gameService.ShowStatistics();
             OnPropertyChanged(nameof(Statistics));
         }
 
         private void EndTurn()
         {
             _gameService.EndTurn = true;
-            if(boardVM.SelectedPiece != null)
-            { 
-                boardVM.SelectedPiece.alreadyJumped = false; 
-            }
+            boardVM.DestinationTile.Piece.alreadyJumped = false;
+           // boardVM.SelectedPiece.alreadyJumped = false; 
             _gameService.SwitchTurns();
             OnPropertyChanged(nameof(CurrentPlayer));
         }

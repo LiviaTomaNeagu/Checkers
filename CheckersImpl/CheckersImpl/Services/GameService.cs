@@ -200,7 +200,7 @@ namespace CheckersImpl.Services
             // Check if the move is a valid jump
             else
             {
-                if (ValidateJump(selectedPiece, destinationTile) )
+                if (ValidateJump(selectedPiece, destinationTile))
                 {
                     // Calculate the row and column of the tile being jumped over
                     int jumpedRow = (destinationTile.Row > selectedPiece.Row) ? selectedPiece.Row + 1 : selectedPiece.Row - 1;

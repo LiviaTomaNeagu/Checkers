@@ -52,27 +52,36 @@ namespace CheckersImpl.View
             {
                 // Handle the click on the piece
                 var newlySelectedPiece = (PieceModel)clickedElement.DataContext;
-
-                // Deselect the previously selected piece (if any)
-                if (((BoardVM)DataContext).SelectedPiece != null && ((BoardVM)DataContext).SelectedPiece != newlySelectedPiece)
+                if(((BoardVM)DataContext).DestinationTile != null && ((BoardVM)DataContext).DestinationTile.Piece != null && ((BoardVM)DataContext).DestinationTile.Piece!= newlySelectedPiece && ((BoardVM)DataContext).DestinationTile.Piece.alreadyJumped == true )
                 {
-                    ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
+                    MessageBox.Show("You must continue jumping with the same piece");
                 }
-
-                if (((BoardVM)DataContext).SelectedPiece != null && ((BoardVM)DataContext).SelectedPiece == newlySelectedPiece)
+                else
                 {
-                    ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
-                    newlySelectedPiece = null;
-                }
+
+                    // Deselect the previously selected piece (if any)
+                    if (((BoardVM)DataContext).SelectedPiece != null && ((BoardVM)DataContext).SelectedPiece != newlySelectedPiece)
+                    {
+                        ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
+                    }
+
+                    if (((BoardVM)DataContext).SelectedPiece != null && ((BoardVM)DataContext).SelectedPiece == newlySelectedPiece)
+                    {
+                        ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
+                        newlySelectedPiece = null;
+                    }
 
                 // Update the selected piece
                 ((BoardVM)DataContext).SelectedPiece = newlySelectedPiece;
 
-                if (((BoardVM)DataContext).SelectedPiece != null)
-                {
-                    // Select the newly clicked piece
-                    ((BoardVM)DataContext).SelectedPiece.IsSelected = true;
+                    if (((BoardVM)DataContext).SelectedPiece != null)
+                    {
+                        // Select the newly clicked piece
+                        ((BoardVM)DataContext).SelectedPiece.IsSelected = true;
+                    }
                 }
+
+                
             }
         }
 
