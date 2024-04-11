@@ -3,6 +3,7 @@ using System.Windows.Input;
 using CheckersImpl.Services;
 using CheckersImpl.Commands;
 using System.Data;
+using System.Windows;
 
 namespace CheckersImpl.ViewModels
 {
@@ -170,7 +171,15 @@ namespace CheckersImpl.ViewModels
         {
             if (e.PropertyName == nameof(BoardVM.DestinationTile))
             {
-                _gameService.MovePiece(boardVM.SelectedPiece, boardVM.DestinationTile);
+                MessageBoxResult result = _gameService.MovePiece(boardVM.SelectedPiece, boardVM.DestinationTile);
+                if (result == MessageBoxResult.OK)
+                {
+                    NewGame();
+                }
+                else if(result == MessageBoxResult.Cancel)
+                {
+                    Application.Current.Shutdown();
+                }
                 OnPropertyChanged(nameof(CurrentPlayer));
                 OnPropertyChanged(nameof(PlayerOnePieces));
                 OnPropertyChanged(nameof(PlayerTwoPieces));
@@ -241,10 +250,15 @@ namespace CheckersImpl.ViewModels
         private void EndTurn()
         {
             _gameService.EndTurn = true;
-            boardVM.DestinationTile.Piece.alreadyJumped = false;
-           // boardVM.SelectedPiece.alreadyJumped = false; 
-            _gameService.SwitchTurns();
-            OnPropertyChanged(nameof(CurrentPlayer));
+            if(boardVM.DestinationTile.Piece == null) 
+                MessageBox.Show("You have to move something!");
+            else
+            {
+                boardVM.DestinationTile.Piece.alreadyJumped = false;
+              //boardVM.SelectedPiece.alreadyJumped = false; 
+                _gameService.SwitchTurns();
+                OnPropertyChanged(nameof(CurrentPlayer));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

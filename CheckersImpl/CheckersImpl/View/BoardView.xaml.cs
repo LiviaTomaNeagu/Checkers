@@ -102,9 +102,11 @@ namespace CheckersImpl.View
 
                     ((BoardVM)DataContext).DestinationTile = destinationTile;
 
-                    // After moving the piece, reset selectedPiece to null
-                    ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
-                    ((BoardVM)DataContext).SelectedPiece = null;
+                    if(((BoardVM)DataContext).SelectedPiece != null)
+                    {// After moving the piece, reset selectedPiece to null
+                        ((BoardVM)DataContext).SelectedPiece.IsSelected = false;
+                        ((BoardVM)DataContext).SelectedPiece = null;
+                    }
                 }
             }
         }

@@ -190,7 +190,7 @@ namespace CheckersImpl.Services
                 && destinationTile.IsOccupied == false;
         }
 
-        public void MovePiece(PieceModel selectedPiece, TileModel destinationTile)
+        public MessageBoxResult MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
             if (ValidateMove(selectedPiece, destinationTile) && selectedPiece.alreadyJumped == false)
             {
@@ -218,15 +218,7 @@ namespace CheckersImpl.Services
                             PlayerOnePieces--;
                             if(WON() != Player.None)
                             {
-                                MessageBoxResult result = MessageBox.Show("Player Two wins!\n Do you want to start a new game?", "CONGRATULATIONS", MessageBoxButton.OKCancel);
-                                if(result == MessageBoxResult.OK)
-                                {
-                                    StartNewGame();
-                                }
-                                else
-                                {
-                                    Application.Current.Shutdown();
-                                }
+                                return MessageBox.Show("Player Two wins!\n Do you want to start a new game?", "CONGRATULATIONS", MessageBoxButton.OKCancel);
                             }
                         }
                         else if (jumpedPiece.Player == Player.PlayerTwo)
@@ -235,15 +227,7 @@ namespace CheckersImpl.Services
                             if(WON() != Player.None)
                             {
                                 // Player One wins
-                                MessageBoxResult result = MessageBox.Show("Player One wins!\n Do you want to start a new game?","CONGRATULATIONS", MessageBoxButton.OKCancel);
-                                if (result == MessageBoxResult.OK)
-                                {
-                                    StartNewGame();
-                                }
-                                else
-                                {
-                                    Application.Current.Shutdown();
-                                }
+                                return MessageBox.Show("Player One wins!\n Do you want to start a new game?","CONGRATULATIONS", MessageBoxButton.OKCancel);
                             }
                         }
                         selectedPiece.alreadyJumped = true;
@@ -261,9 +245,9 @@ namespace CheckersImpl.Services
                     selectedPiece.alreadyJumped = false;
                     SwitchTurns();
                 }
+                
              }
-            
-
+            return MessageBoxResult.None;
         }
 
         private void HandleMove(PieceModel selectedPiece, TileModel destinationTile)
