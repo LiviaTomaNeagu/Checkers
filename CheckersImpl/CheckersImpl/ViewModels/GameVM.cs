@@ -233,7 +233,9 @@ namespace CheckersImpl.ViewModels
 
         private void StatisticsGame()
         {
-           Statistics = _gameService.ShowStatistics();
+            //Statistics = _gameService.ShowStatistics();
+            Statistics = "Hello";
+            OnPropertyChanged(nameof(Statistics));
         }
 
         private void EndTurn()

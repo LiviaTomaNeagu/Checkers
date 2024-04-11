@@ -30,11 +30,11 @@
                 </TabItem>
                 <TabItem Header="Help">
                     <Menu>
-                        <MenuItem Header="About"/>
+                        <MenuItem Header="About" Click="About_Click"/>
                     </Menu>
                 </TabItem>
             </TabControl>
-            <TextBlock Text="Information" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,10,0,0"/>
+            <TextBlock Name="textInformation" Text="{Binding Statistics}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="10,10,10,10" TextWrapping="Wrap"/>
             <StackPanel Name="AllowTextBox" Orientation="Horizontal" Margin="5" Visibility="Hidden">
                 <TextBlock Text="Allow Multiple Jump " Margin="0,5,0,0" VerticalAlignment="Center"/>
                 <ToggleButton Width="50" Height="41" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding AllowMultipleJumps, Mode=TwoWay}">
@@ -62,8 +62,10 @@
                     </ToggleButton.Template>
                 </ToggleButton>
             </StackPanel>
+            <TextBlock Text="PlayerOne Remaining Pieces:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,40,0,0"/>
             <TextBlock Text="{Binding PlayerOnePieces}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,40,0,0"/>
-            <TextBlock Text="{Binding PlayerTwoPieces}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,70,0,0"/>
+            <TextBlock Text="PlayerTwo Remaining Pieces:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,60,0,0"/>
+            <TextBlock Text="{Binding PlayerTwoPieces}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,65,0,0"/>
 
             <!-- Alte butoane sau elemente de meniu pot fi adăugate aici -->
         </StackPanel>
