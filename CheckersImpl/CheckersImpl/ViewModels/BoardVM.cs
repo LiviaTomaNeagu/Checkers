@@ -170,14 +170,14 @@ namespace CheckersImpl.ViewModels
             if (_selectedPiece.Row != 7 && _selectedPiece.Row != 6 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7 
                 && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].IsOccupied == true
-                && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Piece.Player == Player.PlayerTwo)
+                && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
             }
             if (_selectedPiece.Row != 6 && _selectedPiece.Row != 7 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
                 && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].IsOccupied == true
-                && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Piece.Player == Player.PlayerTwo)
+                && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
             }
@@ -198,14 +198,14 @@ namespace CheckersImpl.ViewModels
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7
                 && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].IsOccupied == true
-                && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Piece.Player == Player.PlayerOne)
+                && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
                 && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].IsOccupied == true
-                && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Piece.Player == Player.PlayerOne)
+                && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
             }

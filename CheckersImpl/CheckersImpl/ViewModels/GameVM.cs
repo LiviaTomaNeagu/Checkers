@@ -242,7 +242,10 @@ namespace CheckersImpl.ViewModels
         private void EndTurn()
         {
             _gameService.EndTurn = true;
-            boardVM.SelectedPiece.alreadyJumped= false;
+            if(boardVM.SelectedPiece != null)
+            { 
+                boardVM.SelectedPiece.alreadyJumped = false; 
+            }
             _gameService.SwitchTurns();
             OnPropertyChanged(nameof(CurrentPlayer));
         }

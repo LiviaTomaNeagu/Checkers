@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CheckersImpl.Services
@@ -215,17 +216,34 @@ namespace CheckersImpl.Services
                         if (jumpedPiece.Player == Player.PlayerOne)
                         {
                             PlayerOnePieces--;
-                            if(PlayerOnePieces == 0)
+                            if(WON() != Player.None)
                             {
-                                // Player Two wins
+                                MessageBoxResult result = MessageBox.Show("Player Two wins!\n Do you want to start a new game?", "CONGRATULATIONS", MessageBoxButton.OKCancel);
+                                if(result == MessageBoxResult.OK)
+                                {
+                                    StartNewGame();
+                                }
+                                else
+                                {
+                                    Application.Current.Shutdown();
+                                }
                             }
                         }
                         else if (jumpedPiece.Player == Player.PlayerTwo)
                         {
                             PlayerTwoPieces--;
-                            if(PlayerTwoPieces == 0)
+                            if(WON() != Player.None)
                             {
                                 // Player One wins
+                                MessageBoxResult result = MessageBox.Show("Player One wins!\n Do you want to start a new game?","CONGRATULATIONS", MessageBoxButton.OKCancel);
+                                if (result == MessageBoxResult.OK)
+                                {
+                                    StartNewGame();
+                                }
+                                else
+                                {
+                                    Application.Current.Shutdown();
+                                }
                             }
                         }
                         selectedPiece.alreadyJumped = true;
@@ -235,7 +253,8 @@ namespace CheckersImpl.Services
                 }
                 else
                 {
-                    throw new InvalidOperationException("Invalid move");
+                    MessageBox.Show("Invalid move. Try again!");
+                    //throw new InvalidOperationException("Invalid move");
                 }
                 if (AllowMultipleJumps == false)
                 {
@@ -281,6 +300,22 @@ namespace CheckersImpl.Services
                     piece.CrownPiece();
                 }
             }
+        }
+
+        public Player WON()
+        {             
+            if (PlayerOnePieces == 0)
+            {
+                _statisticsService.UpdateStatistics(Player.PlayerTwo);
+                return Player.PlayerTwo;
+            }
+            else if (PlayerTwoPieces == 0)
+            {
+                _statisticsService.UpdateStatistics(Player.PlayerOne);
+                return Player.PlayerOne;
+            }
+            return Player.None;
+            
         }
     }
 }
