@@ -174,6 +174,7 @@ namespace CheckersImpl.ViewModels
                 OnPropertyChanged(nameof(CurrentPlayer));
                 OnPropertyChanged(nameof(PlayerOnePieces));
                 OnPropertyChanged(nameof(PlayerTwoPieces));
+                OnPropertyChanged(nameof(boardVM.myVMBoard));
             }
         }
 

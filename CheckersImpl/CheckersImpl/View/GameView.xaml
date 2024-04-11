@@ -86,7 +86,7 @@
               </TextBlock>
             <TextBlock Text="choose your move!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="70" FontSize="22" FontStyle="Italic"/>
             <Button Content="End Turn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25" Width="100" Height="30" IsEnabled="{Binding AllowMultipleJumps}" Command="{Binding EndTurnCommand}"/>
-
+            <!--<TextBlock Content="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontStyle="Italic"/>-->
         </Grid>
     </DockPanel>
 </UserControl>

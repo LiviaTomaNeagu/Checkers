@@ -139,6 +139,14 @@ namespace CheckersImpl.Services
         public void CrownPiece()
         {
             IsKing = true;
+            if (Player == Player.PlayerOne)
+            {
+                Color = new SolidColorBrush(Colors.Blue);
+            }
+            else
+            {
+                Color = new SolidColorBrush(Colors.Pink);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

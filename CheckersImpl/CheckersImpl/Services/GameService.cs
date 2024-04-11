@@ -215,10 +215,18 @@ namespace CheckersImpl.Services
                         if (jumpedPiece.Player == Player.PlayerOne)
                         {
                             PlayerOnePieces--;
+                            if(PlayerOnePieces == 0)
+                            {
+                                // Player Two wins
+                            }
                         }
                         else if (jumpedPiece.Player == Player.PlayerTwo)
                         {
                             PlayerTwoPieces--;
+                            if(PlayerTwoPieces == 0)
+                            {
+                                // Player One wins
+                            }
                         }
                         selectedPiece.alreadyJumped = true;
                         HandleMove(selectedPiece, destinationTile);
