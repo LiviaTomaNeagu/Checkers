@@ -97,7 +97,11 @@ namespace CheckersImpl.Services
             }
             else
             {
-                return IsValidMoveUpBottom(piece, targetTile) || IsValidMoveBottomUp(piece, targetTile);
+                if (CurrentTurn == piece.Player)
+                {
+                    return IsValidMoveUpBottom(piece, targetTile) || IsValidMoveBottomUp(piece, targetTile);
+                }
+                return false;
             }
         }
 
@@ -126,7 +130,11 @@ namespace CheckersImpl.Services
                 }
                 else
                 {
-                    return IsValidJumpUpBottom(piece, targetTile) || IsValidJumpBottomUp(piece, targetTile);
+                    if (CurrentTurn == piece.Player)
+                    {
+                        return IsValidJumpUpBottom(piece, targetTile) || IsValidJumpBottomUp(piece, targetTile);
+                    }
+                    return false;
                 }
             }
             else
@@ -233,18 +241,20 @@ namespace CheckersImpl.Services
                         selectedPiece.alreadyJumped = true;
                         HandleMove(selectedPiece, destinationTile);
                     }
-                   
+                    if (AllowMultipleJumps == false)
+                    {
+                        selectedPiece.alreadyJumped = false;
+                        SwitchTurns();
+                    }
                 }
                 else
                 {
+                    //selectedPiece = null;
+                    //destinationTile = null;
                     MessageBox.Show("Invalid move. Try again!");
                     //throw new InvalidOperationException("Invalid move");
                 }
-                if (AllowMultipleJumps == false)
-                {
-                    selectedPiece.alreadyJumped = false;
-                    SwitchTurns();
-                }
+                
                 
              }
             return MessageBoxResult.None;
