@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace CheckersImpl.ViewModels
@@ -27,7 +28,10 @@ namespace CheckersImpl.ViewModels
                     _selectedPiece = value;
                     if(_selectedPiece != null)
                     {
-                        FindPossibleMoves();
+                        if (!FindPossibleMoves())
+                        {
+                            MessageBox.Show("No possible moves for this piece");
+                        }
                         OnPropertyChanged(nameof(SelectedPiece));
                     }
                     else
@@ -155,17 +159,20 @@ namespace CheckersImpl.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ChangeColorsPlayerOne()
+        private bool ChangeColorsPlayerOne()
         {
+            bool modified = false;
             if (_selectedPiece.Row != 7 && _selectedPiece.Column != 7 
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
             {
                 myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 7 && _selectedPiece.Column != 0 
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
             {
                 myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 7 && _selectedPiece.Row != 6 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7 
                 && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
@@ -173,6 +180,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 6 && _selectedPiece.Row != 7 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
                 && myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
@@ -180,20 +188,25 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
+            return modified;
         }
 
-        private void ChangeColorsPlayerTwo()
+        private bool ChangeColorsPlayerTwo()
         {
+            bool modified = false;
             if (_selectedPiece.Row != 0 && _selectedPiece.Column != 7
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
             {
                 myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Column != 0
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
             {
                 myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7
                 && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].IsOccupied == false
@@ -201,6 +214,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
                 && myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].IsOccupied == false
@@ -208,29 +222,40 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
                 myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
+                modified = true;
             }
+            return modified;
         }
 
-        private void FindPossibleMoves()
+        private bool FindPossibleMoves()
         {
             RemovePossibleMoves();
             if (!_selectedPiece.IsKing)
             {
                 if (_selectedPiece.Player == Player.PlayerOne)
                 {
-                    ChangeColorsPlayerOne();
+                    if (ChangeColorsPlayerOne())
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
-                    ChangeColorsPlayerTwo();
+                    if (ChangeColorsPlayerTwo())
+                    {
+                        return true;
+                    }
                 }
             }
             else
             {
-                ChangeColorsPlayerOne();
-                ChangeColorsPlayerTwo();
+                if (ChangeColorsPlayerOne() || ChangeColorsPlayerTwo())
+                {
+                    return true;
+                }   
             }
             OnPropertyChanged(nameof(myVMBoard));
+            return false;
         }
 
         private void RemovePossibleMoves()

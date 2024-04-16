@@ -1,6 +1,6 @@
 {
-  "FirstPlayerWins": 2,
-  "SecondPlayerWins": 1,
-  "Draws": 0,
-  "TotalGames": 3
+  "FirstPlayerWins": 4,
+  "SecondPlayerWins": 2,
+  "Draws": 4,
+  "TotalGames": 10
 }

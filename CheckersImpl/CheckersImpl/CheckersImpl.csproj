@@ -83,12 +83,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\JumpCommand.cs" />
-    <Compile Include="Commands\MoveCommand.cs" />
-    <Compile Include="Commands\MultiJumpCommand.cs" />
-    <Compile Include="Commands\SaveGameCommand.cs" />
-    <Compile Include="Commands\ShowStatisticsCommand.cs" />
-    <Compile Include="Commands\StartGameCommand.cs" />
     <Compile Include="View\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>

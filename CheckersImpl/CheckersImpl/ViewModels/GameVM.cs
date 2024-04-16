@@ -10,6 +10,19 @@ namespace CheckersImpl.ViewModels
     public class GameVM : INotifyPropertyChanged
     {
         private GameService _gameService;
+        private ICommand _declareDrawCommand;
+        public ICommand DeclareDrawCommand
+        {
+            get => _declareDrawCommand;
+            set
+            {
+                if (_declareDrawCommand != value)
+                {
+                    _declareDrawCommand = value;
+                    OnPropertyChanged(nameof(DeclareDrawCommand));
+                }
+            }
+        }
 
         private bool _allowMultipleJumps = false;
         public bool AllowMultipleJumps
@@ -161,6 +174,7 @@ namespace CheckersImpl.ViewModels
             LoadGameCommand = new RelayCommand(_ => LoadGame());
             StatisticsCommand = new RelayCommand(_ => StatisticsGame());
             EndTurnCommand = new RelayCommand(_ => EndTurn());
+            DeclareDrawCommand = new RelayCommand(_ => DeclareDraw());
             //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
 
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
@@ -187,12 +201,20 @@ namespace CheckersImpl.ViewModels
             }
         }
 
-
+        private void DeclareDraw()
+        {
+            if(_gameService.DeclareDraw() == MessageBoxResult.OK)
+            {
+                NewGame();
+            }
+        }
         private void NewGame()
         {
             _gameService.CurrentTurn = Player.PlayerOne;
             boardVM = new BoardVM();
             _gameService.Pieces = boardVM.Pieces;
+            _gameService.PlayerOnePieces = 12;
+            _gameService.PlayerTwoPieces = 12;
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
 
             OnPropertyChanged(nameof(CurrentPlayer));

@@ -37,15 +37,11 @@ namespace CheckersImpl.Services
             PlayerTwoPieces = 12;
             PlayerOnePieces = 12;
         }
-
- 
-        public void StartNewGame()
+        public MessageBoxResult DeclareDraw()
         {
-
-            //// Notify that the game state has changed
-            OnGameStateChanged();
+            _statisticsService.UpdateStatistics(Player.None);
+            return MessageBox.Show("The game is a draw!\n Do you want to start a new game?", "DRAW", MessageBoxButton.OKCancel);  
         }
-
         public void SaveGame()
         {
             //// Use FileService to save the current game state to a file
