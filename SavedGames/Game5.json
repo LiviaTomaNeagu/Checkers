@@ -1,0 +1,222 @@
+{
+  "Pieces": [
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 0,
+      "Column": 1,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 0,
+      "Column": 3,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 0,
+      "Column": 5,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 0,
+      "Column": 7,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 1,
+      "Column": 0,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 1,
+      "Column": 2,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 1,
+      "Column": 4,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 1,
+      "Column": 6,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 4,
+      "Column": 1,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": true,
+      "Color": "#FFD1CBBD",
+      "IsKing": true,
+      "Row": 5,
+      "Column": 2,
+      "IsSelected": true,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 2,
+      "Column": 5,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#EBF1EDE6",
+      "IsKing": false,
+      "Row": 2,
+      "Column": 7,
+      "IsSelected": false,
+      "Player": 1
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 5,
+      "Column": 0,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 4,
+      "Column": 3,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 3,
+      "Column": 2,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 4,
+      "Column": 7,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 6,
+      "Column": 1,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 6,
+      "Column": 3,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 5,
+      "Column": 4,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 6,
+      "Column": 7,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 7,
+      "Column": 0,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 7,
+      "Column": 2,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 6,
+      "Column": 5,
+      "IsSelected": false,
+      "Player": 2
+    },
+    {
+      "alreadyJumped": false,
+      "Color": "#FF3A2D28",
+      "IsKing": false,
+      "Row": 7,
+      "Column": 6,
+      "IsSelected": false,
+      "Player": 2
+    }
+  ],
+  "CurrentTurn": "PlayerOne",
+  "AllowMultipleJumps": true
+}

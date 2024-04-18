@@ -249,7 +249,9 @@ namespace CheckersImpl.ViewModels
             }
             else
             {
-                if (ChangeColorsPlayerOne() || ChangeColorsPlayerTwo())
+                bool playerOne = ChangeColorsPlayerOne();
+                bool playerTwo = ChangeColorsPlayerTwo();
+                if ( playerOne || playerTwo )
                 {
                     return true;
                 }   
@@ -266,7 +268,8 @@ namespace CheckersImpl.ViewModels
                 {
                     if (((SolidColorBrush)myVMBoard[row * 8 + col].Color).Color == Colors.Green)
                     {
-                        myVMBoard[row * 8 + col].Color = (row + col) % 2 == 0 ? new SolidColorBrush(Colors.Beige) : new SolidColorBrush(Colors.Brown);
+                        Color myColor = Color.FromArgb(0xFF, 0xCB, 0xAD, 0x8D);
+                        myVMBoard[row * 8 + col].Color = new SolidColorBrush(myColor);
                     }
                 }
             }

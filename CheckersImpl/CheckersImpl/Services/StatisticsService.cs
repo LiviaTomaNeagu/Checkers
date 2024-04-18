@@ -49,7 +49,6 @@ namespace CheckersImpl.Services
 
             // Format the output string
             StringBuilder stats = new StringBuilder();
-            stats.AppendLine("Statistics:");
             stats.AppendLine($"Total games played: {totalGames}");
             stats.AppendLine($"Player One Wins: {firstPlayerWins} ({firstPlayerWinPercentage:N2}%)");
             stats.AppendLine($"Player Two Wins: {secondPlayerWins} ({secondPlayerWinPercentage:N2}%)");

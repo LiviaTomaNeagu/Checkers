@@ -32,7 +32,7 @@ namespace CheckersImpl.Services
         public bool IsKing
         {
             get => _isKing;
-            private set // Made private as it's set internally
+            set
             {
                 if (_isKing != value)
                 {
@@ -138,14 +138,18 @@ namespace CheckersImpl.Services
         // Method to crown the piece a king
         public void CrownPiece()
         {
+            Color light = System.Windows.Media.Color.FromArgb(0xFF, 0xD1, 0xCB, 0xBD);
+            Color dark = System.Windows.Media.Color.FromArgb(0xFF, 0xA4, 0x83, 0x74);
+            SolidColorBrush lightbrown = new SolidColorBrush(light);
+            SolidColorBrush darkbrown = new SolidColorBrush(dark);
             IsKing = true;
             if (Player == Player.PlayerOne)
             {
-                Color = new SolidColorBrush(Colors.Blue);
+                Color = lightbrown;
             }
             else
             {
-                Color = new SolidColorBrush(Colors.Pink);
+                Color = darkbrown;
             }
         }
 

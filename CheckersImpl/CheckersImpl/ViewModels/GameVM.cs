@@ -217,6 +217,8 @@ namespace CheckersImpl.ViewModels
             _gameService.PlayerTwoPieces = 12;
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
 
+            OnPropertyChanged(nameof(PlayerOnePieces));
+            OnPropertyChanged(nameof(PlayerTwoPieces));
             OnPropertyChanged(nameof(CurrentPlayer));
             OnPropertyChanged(nameof(boardVM));
             // Update any other relevant properties or perform additional tasks
