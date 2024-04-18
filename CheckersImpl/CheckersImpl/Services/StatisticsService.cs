@@ -63,6 +63,7 @@ namespace CheckersImpl.Services
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string relativePath = Path.Combine(appDirectory, "../../statistics.json");
             string filePath = Path.GetFullPath(relativePath);
+            // Get the path to the statistics.json file
 
             var statistics = new
             {

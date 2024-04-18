@@ -86,8 +86,6 @@ namespace CheckersImpl.ViewModels
             }
         }
 
-        
-
         public BoardVM()
         {
             // Create an instance of BoardModel
@@ -103,6 +101,7 @@ namespace CheckersImpl.ViewModels
         private void Pieces_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             // Handle different types of changes
+            // When a piece is added or removed, update the tile it's on, the Pieces collection and the myVMBoard collection
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -123,11 +122,10 @@ namespace CheckersImpl.ViewModels
                         var tile = myVMBoard.FirstOrDefault(t => t.Piece == oldPiece);
                         if (tile != null)
                         {
-                            tile.Piece = null; // Or however you represent an empty tile
+                            tile.Piece = null;
                         }
                     }
                     break;
-                    // Handle other cases like Replace, Reset, etc., as needed
             }
         }
 
@@ -165,13 +163,13 @@ namespace CheckersImpl.ViewModels
             if (_selectedPiece.Row != 7 && _selectedPiece.Column != 7 
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
             {
-                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 7 && _selectedPiece.Column != 0 
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
             {
-                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 7 && _selectedPiece.Row != 6 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7 
@@ -179,7 +177,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].IsOccupied == true
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
-                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 6 && _selectedPiece.Row != 7 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
@@ -187,7 +185,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].IsOccupied == true
                 && myVMBoard[(_selectedPiece.Row + 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
-                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row + 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             return modified;
@@ -199,13 +197,13 @@ namespace CheckersImpl.ViewModels
             if (_selectedPiece.Row != 0 && _selectedPiece.Column != 7
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].IsOccupied == false)
             {
-                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Column != 0
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].IsOccupied == false)
             {
-                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 6 && _selectedPiece.Column != 7
@@ -213,7 +211,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].IsOccupied == true
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column + 1].Piece.Player != _selectedPiece.Player)
             {
-                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column + 2].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             if (_selectedPiece.Row != 0 && _selectedPiece.Row != 1 && _selectedPiece.Column != 0 && _selectedPiece.Column != 1
@@ -221,7 +219,7 @@ namespace CheckersImpl.ViewModels
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].IsOccupied == true
                 && myVMBoard[(_selectedPiece.Row - 1) * 8 + _selectedPiece.Column - 1].Piece.Player != _selectedPiece.Player)
             {
-                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush(Colors.Green);
+                myVMBoard[(_selectedPiece.Row - 2) * 8 + _selectedPiece.Column - 2].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#965d23"));
                 modified = true;
             }
             return modified;
@@ -249,7 +247,9 @@ namespace CheckersImpl.ViewModels
             }
             else
             {
-                if (ChangeColorsPlayerOne() || ChangeColorsPlayerTwo())
+                bool player1 = ChangeColorsPlayerOne();
+                bool player2 = ChangeColorsPlayerTwo();
+                if (player1 || player2)
                 {
                     return true;
                 }   
@@ -264,14 +264,13 @@ namespace CheckersImpl.ViewModels
             {
                 for (int col = 0; col < 8; col++)
                 {
-                    if (((SolidColorBrush)myVMBoard[row * 8 + col].Color).Color == Colors.Green)
+                    if ((myVMBoard[row * 8 + col].Color).Color == (Color)ColorConverter.ConvertFromString("#965d23"))
                     {
-                        myVMBoard[row * 8 + col].Color = (row + col) % 2 == 0 ? new SolidColorBrush(Colors.Beige) : new SolidColorBrush(Colors.Brown);
+                        myVMBoard[row * 8 + col].Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#d18b47"));
                     }
                 }
             }
             OnPropertyChanged(nameof(myVMBoard));
         }
-
     }
 }

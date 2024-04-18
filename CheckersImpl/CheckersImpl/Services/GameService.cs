@@ -19,14 +19,12 @@ namespace CheckersImpl.Services
         public ObservableCollection<PieceModel> Pieces;
         private FileService _fileService;
         private StatisticsService _statisticsService;
+
         public Player CurrentTurn { get; set; }
-
         public bool AllowMultipleJumps = false;
-
         public bool EndTurn = false;
         public int PlayerOnePieces;
         public int PlayerTwoPieces;
-
 
         public GameService(ObservableCollection<PieceModel> Pieces)
         {
@@ -37,20 +35,22 @@ namespace CheckersImpl.Services
             PlayerTwoPieces = 12;
             PlayerOnePieces = 12;
         }
+
         public MessageBoxResult DeclareDraw()
         {
             _statisticsService.UpdateStatistics(Player.None);
             return MessageBox.Show("The game is a draw!\n Do you want to start a new game?", "DRAW", MessageBoxButton.OKCancel);  
         }
+
         public void SaveGame()
         {
-            //// Use FileService to save the current game state to a file
+            // Use FileService to save the current game state to a file
             _fileService.SaveGame(Pieces, CurrentTurn, AllowMultipleJumps);
         }
 
         public void LoadGame()
         {
-            //// Use FileService to load the game state from a file
+            // Use FileService to load the game state from a file
             GameLoadResult loadResult = _fileService.LoadGame();
             if(loadResult != null)
             {
@@ -68,7 +68,7 @@ namespace CheckersImpl.Services
                     
                 }
             }
-            //// Notify that the game state has changed
+            // Notify that the game state has changed
             OnGameStateChanged();
         }
 
@@ -157,8 +157,6 @@ namespace CheckersImpl.Services
             {
                 CurrentTurn = Player.PlayerOne;
             }
-
-            // Raise an event or notify the UI that the turn has switched
         }
 
         public event EventHandler GameStateChanged;
@@ -196,15 +194,18 @@ namespace CheckersImpl.Services
 
         public MessageBoxResult MovePiece(PieceModel selectedPiece, TileModel destinationTile)
         {
+            if (selectedPiece.Player != CurrentTurn)
+            {
+                MessageBox.Show("Those are not your pieces.. Pick something else!");
+                return MessageBoxResult.None;
+            }
             if (ValidateMove(selectedPiece, destinationTile) && selectedPiece.alreadyJumped == false)
             {
                 HandleMove(selectedPiece, destinationTile);
                 SwitchTurns();
             }
             // Check if the move is a valid jump
-            else
-            {
-                if (ValidateJump(selectedPiece, destinationTile))
+            else if (ValidateJump(selectedPiece, destinationTile))
                 {
                     // Calculate the row and column of the tile being jumped over
                     int jumpedRow = (destinationTile.Row > selectedPiece.Row) ? selectedPiece.Row + 1 : selectedPiece.Row - 1;
@@ -245,34 +246,23 @@ namespace CheckersImpl.Services
                 }
                 else
                 {
-                    //selectedPiece = null;
-                    //destinationTile = null;
-                    MessageBox.Show("Invalid move. Try again!");
-                    //throw new InvalidOperationException("Invalid move");
+                    MessageBox.Show("Can't go that way. Sorry.. Try again!");
+                    return MessageBoxResult.None;
                 }
-                
-                
-             }
             return MessageBoxResult.None;
         }
 
         private void HandleMove(PieceModel selectedPiece, TileModel destinationTile)
         {
-            // Update the source and destination tiles with the moved piece
             selectedPiece.CurrentTile.Piece = null;
             selectedPiece.CurrentTile.IsOccupied = false;
             destinationTile.Piece = selectedPiece;
             destinationTile.IsOccupied = true;
-            // Update the piece's row, column, and current tile
             selectedPiece.Row = destinationTile.Row;
             selectedPiece.Column = destinationTile.Column;
             selectedPiece.CurrentTile = destinationTile;
-            // Check if the piece should be crowned
             CrownPiece(selectedPiece);
-            // Switch turns
-            
         }
-
 
         public void CrownPiece(PieceModel piece)
         {
@@ -305,7 +295,6 @@ namespace CheckersImpl.Services
                 return Player.PlayerOne;
             }
             return Player.None;
-            
         }
     }
 }

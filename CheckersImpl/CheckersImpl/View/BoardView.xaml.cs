@@ -37,8 +37,6 @@ namespace CheckersImpl.View
                     child.MouseLeftButtonDown += SelectTile;
                 }
             }
-
-            //MouseLeftButtonDown += SelectTile;
         }
 
 
@@ -79,10 +77,7 @@ namespace CheckersImpl.View
                         // Select the newly clicked piece
                         ((BoardVM)DataContext).SelectedPiece.IsSelected = true;
                     }
-                }
-
-                
-            }
+                }            }
         }
 
         private void SelectTile(object sender, MouseButtonEventArgs e)

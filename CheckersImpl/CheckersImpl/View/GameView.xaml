@@ -10,84 +10,52 @@
     <UserControl.DataContext>
         <vm:GameVM/>
     </UserControl.DataContext>
-
-    <DockPanel LastChildFill="True">
-        <!-- Meniu în partea stângă -->
-        <StackPanel DockPanel.Dock="Left" Width="200" Background="White" VerticalAlignment="Stretch">
-            <TabControl Margin="5" VerticalAlignment="Stretch">
-                <TabItem Header="Menu">
-
-                    <Menu>
-                        <StackPanel Orientation="Vertical">
-                            <MenuItem Header="New Game" Command="{Binding NewGameCommand}"/>
-                            <MenuItem Header="Save" Command="{Binding SaveGameCommand}"/>
-                            <MenuItem Header="Open" Command="{Binding LoadGameCommand}"/>
-                            <Separator/>
-                            <MenuItem Header="Allow Multiple Jump" Click="MenuAllow_Click"/>
-                            <MenuItem Header="Statistics" Command="{Binding StatisticsCommand}"/>
-                        </StackPanel>
-                    </Menu>
-                </TabItem>
-                <TabItem Header="Help">
-                    <Menu>
-                        <MenuItem Header="About" Click="About_Click"/>
-                    </Menu>
-                </TabItem>
-            </TabControl>
-            <TextBlock Name="textInformation" Text="{Binding Statistics}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="10,10,10,10" TextWrapping="Wrap"/>
-            <StackPanel Name="AllowTextBox" Orientation="Horizontal" Margin="5" Visibility="Hidden">
-                <TextBlock Text="Allow Multiple Jump " Margin="0,5,0,0" VerticalAlignment="Center"/>
-                <ToggleButton Width="50" Height="41" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding AllowMultipleJumps, Mode=TwoWay}">
-                    <ToggleButton.Template>
-                        <ControlTemplate TargetType="ToggleButton">
-                            <Grid>
-                                <!-- Outer rectangle with rounded corners -->
-                                <Rectangle x:Name="backgroundRectangle" Fill="#D3D3D3" Width="50" Height="25" RadiusX="14" RadiusY="25"/>
-                                <!-- Inner rectangle with rounded corners -->
-                                <Rectangle x:Name="toggleRectangle" Fill="White" Width="20" Height="20" RadiusX="10" RadiusY="10" Margin="0,0,25,0"/>
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="backgroundRectangle" Property="Fill" Value="Green"/>
-                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="White"/>
-                                    <Setter TargetName="toggleRectangle" Property="Margin" Value="25,5,5,5"/>
-                                </Trigger>
-                                <Trigger Property="IsChecked" Value="False">
-                                    <Setter TargetName="toggleRectangle" Property="Fill" Value="White"/>
-                                    <Setter TargetName="toggleRectangle" Property="Margin" Value="5,5,25,5"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ToggleButton.Template>
-                </ToggleButton>
-            </StackPanel>
-            <TextBlock Text="PlayerOne Remaining Pieces:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,40,0,0"/>
-            <TextBlock Text="{Binding PlayerOnePieces}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,40,0,0"/>
-            <TextBlock Text="PlayerTwo Remaining Pieces:" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,60,0,0"/>
-            <TextBlock Text="{Binding PlayerTwoPieces}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,65,0,0"/>
-
-            <!-- Alte butoane sau elemente de meniu pot fi adăugate aici -->
-        </StackPanel>
-
-        <!-- Conținutul principal -->
-        <Grid Background="AliceBlue">
-
-            <!-- Zona de afișare a tablei de joc -->
-            <Border Margin="100,70,100,130" Width="400" Height="400" Padding="10" Background="Black" DataContext="{Binding boardVM}">
+    <Grid>
+        <Grid Name="MenuPage" Background="WhiteSmoke" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Welcome to Checkers!" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="Black" FontStyle="Italic"/>
+            <Menu HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Grid.Row="1">
+                <StackPanel Orientation="Vertical">
+                    <MenuItem Header="New Game" Command="{Binding NewGameCommand}" Background="Wheat" Click="StartGame_Click"/>
+                    <MenuItem Header="Load Game" Command="{Binding LoadGameCommand}" Background="Wheat" Click="StartGame_Click"/>
+                    <MenuItem Header="Statistics" Command="{Binding StatisticsCommand}" Background="Wheat"/>
+                    <Separator/>
+                    <MenuItem Header="About" Click="About_Click" Background="Wheat"/>
+                </StackPanel>
+            </Menu>
+            <TextBlock Name="textInformation" FontSize="20" Grid.Row="2" Text="{Binding Statistics}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,10,10,10" TextWrapping="Wrap"/>
+            <CheckBox Name="AllowMultipleJumps" Grid.Row="2" FontSize="18" Content="Allow multiple jumps" IsChecked="{Binding AllowMultipleJumps, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" HorizontalContentAlignment="Center" Margin="0,10,0,0"/>
+        </Grid>
+        <Grid Name="GamePage" Background="WhiteSmoke" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="1"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Width="400" Height="400" Padding="10" Background="Wheat" DataContext="{Binding boardVM}">
                 <local:BoardView/>
             </Border>
-
-            <!-- Indicator pentru rândul curent -->
-            <TextBlock Text="{Binding CurrentPlayer}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40" FontSize="26" FontStyle="Italic">
-                 <!--<Run Text="It's "/>--> 
-                 <!--<Run Text="{Binding CurrentPlayer}" />--> 
-                 <!--<Run Text="'s turn" />--> 
-              </TextBlock>
-            <TextBlock Text="choose your move!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="70" FontSize="22" FontStyle="Italic"/>
-            <Button Content="End Turn" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,25" Width="100" Height="30" IsEnabled="{Binding AllowMultipleJumps}" Command="{Binding EndTurnCommand}"/>
-            <Button Content="Declare Draw" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Width="100" Height="30" Command="{Binding DeclareDrawCommand}"/>
-            <!--<TextBlock Content="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="16" FontStyle="Italic"/>-->
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontStyle="Italic">
+            <Run Text="{Binding CurrentPlayer}" />
+            <Run Text="'s turn" />
+            </TextBlock>
+            <Button Content="End Turn" Grid.Row="1" Grid.Column="0"  Background="Wheat" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30" Width="110" Height="30" FontSize="17" IsEnabled="{Binding AllowMultipleJumps}" Command="{Binding EndTurnCommand}"/>
+            <Button Content="Declare Draw" Grid.Row="1" Grid.Column="0"  Background="Wheat" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,0,0" Width="110" Height="30" FontSize="17" Command="{Binding DeclareDrawCommand}"/>
+            <Button Content="Main Menu" Grid.Row="1" Grid.Column="0" Background="Wheat" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Height="30" FontSize="17" Margin="0, 0, 0, 100" Click="MainMenu_Click"/>
+            <Button Content="Save Game" Grid.Row="1" Grid.Column="0" Background="Wheat" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Height="30" FontSize="17" Margin="0, 110, 0, 0" Command="{Binding SaveGameCommand}"/>
+            <TextBlock Text="First player pieces: " Grid.Row="1" Grid.Column="2" Foreground ="#FF9593" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-50,0,100" FontSize="19" />
+            <TextBlock Text="{Binding PlayerOnePieces}" Grid.Row="1" Grid.Column="2" Foreground ="#FF9593" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,100" FontSize="19"/>
+            <TextBlock Text="Second player pieces: "  Grid.Row="1" Grid.Column="2" Foreground ="#93CEFF" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,100" FontSize="19"/>
+            <TextBlock Text="{Binding PlayerTwoPieces}" Grid.Row="1" Grid.Column="2" Foreground ="#93CEFF" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,-110" FontSize="19"/>
         </Grid>
-    </DockPanel>
+    </Grid>
 </UserControl>

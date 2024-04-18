@@ -16,7 +16,6 @@ namespace CheckersImpl.Services
 {
     public class FileService
     {
-       
         public void SaveGame(ObservableCollection<PieceModel> pieceModels, Player currentPlayer, bool allowMultipleJumps)
         {
             var saveData = new
@@ -25,7 +24,7 @@ namespace CheckersImpl.Services
                 CurrentTurn = currentPlayer.ToString(),
                 AllowMultipleJumps = allowMultipleJumps
             };
-
+            // Create a SaveFileDialog to prompt the user for a file path
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "JSON Files (*.json)|*.json",
@@ -56,9 +55,7 @@ namespace CheckersImpl.Services
                 {
                     string filePath = openFileDialog.FileName;
                     string json = File.ReadAllText(filePath);
-                    // Create a class to match the structure of your save data
-
-
+                    // Creates a class to match the structure of your save data
                     // Deserialize the JSON into the SaveData class
                     SaveData loadedData = JsonConvert.DeserializeObject<SaveData>(json);
 
@@ -70,11 +67,9 @@ namespace CheckersImpl.Services
                         Player currentPlayer = Enum.TryParse<Player>(loadedData.CurrentTurn, out var parsedPlayer) ? parsedPlayer : Player.None;
                         // Extract the AllowMultipleJumps flag from loaded data
                         bool allowMultipleJumps = loadedData.AllowMultipleJumps;
-
                         // Assuming GameLoadResult can accept a boolean for allowMultipleJumps
                         return new GameLoadResult(piecesModel, currentPlayer, allowMultipleJumps);
                     }
-
                 }
                 catch (IOException ex)
                 {
@@ -85,12 +80,8 @@ namespace CheckersImpl.Services
                     MessageBox.Show($"Failed to deserialize JSON: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
             return null; // Indicate that loading was not successful
         }
-
-
-
     }
 
         public class GameLoadResult

@@ -59,7 +59,6 @@ namespace CheckersImpl.ViewModels
             }
         }
 
-        // Example property bound to by the view
         public Player CurrentPlayer
         {
             get => _gameService.CurrentTurn;
@@ -175,7 +174,6 @@ namespace CheckersImpl.ViewModels
             StatisticsCommand = new RelayCommand(_ => StatisticsGame());
             EndTurnCommand = new RelayCommand(_ => EndTurn());
             DeclareDrawCommand = new RelayCommand(_ => DeclareDraw());
-            //MakeMoveCommand = new RelayCommand(_ => MakeMove()); // Assuming move requires parameters
 
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
         }
@@ -216,27 +214,24 @@ namespace CheckersImpl.ViewModels
             _gameService.PlayerOnePieces = 12;
             _gameService.PlayerTwoPieces = 12;
             boardVM.PropertyChanged += DestinationTile_PropertyChanged;
-
+            
+            OnPropertyChanged(nameof(PlayerOnePieces));
+            OnPropertyChanged(nameof(PlayerTwoPieces)); 
             OnPropertyChanged(nameof(CurrentPlayer));
             OnPropertyChanged(nameof(boardVM));
-            // Update any other relevant properties or perform additional tasks
         }
 
         private void SaveGame()
         {
             _gameService.SaveGame();
-            
-            // Additional logic if needed
         }
 
         private void LoadGame()
         {
             _gameService.LoadGame();
-
            
             boardVM.Pieces = _gameService.Pieces;
             AllowMultipleJumps = _gameService.AllowMultipleJumps;
-            // CurrentPlayer = _gameService.CurrentTurn;
 
             _gameService.PlayerOnePieces = 0;
             _gameService.PlayerTwoPieces = 0;
@@ -254,13 +249,8 @@ namespace CheckersImpl.ViewModels
                     _gameService.PlayerTwoPieces++;
                 }
             }
-
-
-            
-
             OnPropertyChanged(nameof(boardVM));
             OnPropertyChanged(nameof(CurrentPlayer));
-
         }
 
         private void StatisticsGame()
@@ -273,11 +263,10 @@ namespace CheckersImpl.ViewModels
         {
             _gameService.EndTurn = true;
             if(boardVM.DestinationTile.Piece == null) 
-                MessageBox.Show("You have to move something!");
+                MessageBox.Show("You have to move something before ending the turn..!");
             else
             {
                 boardVM.DestinationTile.Piece.alreadyJumped = false;
-              //boardVM.SelectedPiece.alreadyJumped = false; 
                 _gameService.SwitchTurns();
                 OnPropertyChanged(nameof(CurrentPlayer));
             }
@@ -288,15 +277,5 @@ namespace CheckersImpl.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        //public void UpdateGameState()
-        //{
-        //    // Update the game state here
-        //    // Example:
-        //    // GameState = newGameState;
-
-        //    // Notify subscribers that the game state has changed
-        //    OnPropertyChanged(nameof(_boardVM));
-        //}
     }
 }

@@ -20,33 +20,26 @@ namespace CheckersImpl.Services
         private void InitializeBoard()
         {
             myBoard = new TileModel[8, 8];
-            myPieces = new PieceModel[24]; // Assuming 12 pieces for each player
+            myPieces = new PieceModel[24];
             int pieceIndex = 0;
 
             for (int row = 0; row < 8; row++)
             {
                 for (int col = 0; col < 8; col++)
                 {
-                    // Determine the color of the tile based on its position
                     string color = (row + col) % 2 == 0 ? "lightbrown" : "darkbrown";
                     myBoard[row, col] = new TileModel(row, col, GetColorFromString(color));
 
-                    // Place pieces on the appropriate tiles for the initial setup
-                    // For a standard 8x8 checkers board, the first 3 rows and the last 3 rows are filled with pieces
-                    // Pieces are placed on the dark squares
                     if (color == "darkbrown" && row < 3)
                     {
-                        // Create a new piece and place it on the current tile
-                        //PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Purple)); // Use whatever color represents one set of pieces
-                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.White), myBoard[row, col], Player.PlayerOne); // Use whatever color represents one set of pieces
+                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.White), myBoard[row, col], Player.PlayerOne);
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;
                         myBoard[row, col].IsOccupied = true;
                     }
                     else if (color == "darkbrown" && row >= 5)
                     {
-                        // Create a new piece and place it on the current tile
-                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Black), myBoard[row, col], Player.PlayerTwo); // Use whatever color represents the other set of pieces
+                        PieceModel piece = new PieceModel(row, col, new SolidColorBrush(Colors.Black), myBoard[row, col], Player.PlayerTwo);
                         myBoard[row, col].Piece = piece;
                         myPieces[pieceIndex++] = piece;
                         myBoard[row, col].IsOccupied = true;
@@ -60,9 +53,9 @@ namespace CheckersImpl.Services
             switch (color)
             {
                 case "lightbrown":
-                    return new SolidColorBrush(Colors.Beige);
+                    return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffce9e"));
                 case "darkbrown":
-                    return new SolidColorBrush(Colors.Brown);
+                    return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#d18b47"));
                 default:
                     return new SolidColorBrush(Colors.Transparent);
             }

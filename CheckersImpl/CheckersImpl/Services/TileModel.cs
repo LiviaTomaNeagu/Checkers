@@ -54,6 +54,5 @@ public class TileModel : INotifyPropertyChanged
     }
 
     public  TileModel()
-    {
-    }
+    {}
 }
